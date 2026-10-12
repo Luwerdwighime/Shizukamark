@@ -1,0 +1,37 @@
+name: Build Native Audiowmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/build-native.yml'
+
+jobs:
+  build-native:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r26b
+          add-to-path: true
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake libtool pkg-config build-essential
+
+      - name: Build audiowmark for Android ABIs
+        run: |
+          chmod +x scripts/build_audiowmark_android.sh
+          ./scripts/build_audiowmark_android.sh arm64-v8a armeabi-v7a x86_64
+
+      - name: Upload prebuilt jniLibs artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jniLibs
+          path: android/app/src/main/jniLibs/

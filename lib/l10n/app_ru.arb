@@ -1,0 +1,137 @@
+{
+  "@@locale": "ru",
+
+  "appTitle": "Shizukamark",
+
+  "homeApplyMark": "Нанести знак",
+  "homeReadMark": "Прочитать знак",
+  "homeKeys": "Известные ключи",
+  "homeImport": "Импорт данных",
+  "homeExport": "Экспорт данных",
+
+  "applyMarkTitle": "Нанести знак",
+  "applyMarkSecretHint": "Введите секретное сообщение",
+  "applyMarkFileHint": "Выберите музло",
+  "applyMarkKeyHint": "Выберите ключ",
+  "applyMarkOr": "или",
+  "applyMarkCreateKey": "Создать новый ключ",
+  "applyMarkExportFolder": "Папка экспорта: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "Системная папка Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "Кастомное сохранение (диалог сохранения)",
+  "applyMarkCustomFolder": "Сохранить как: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "applyMarkButton": "Наложить водяной знак",
+  "applyMarkErrorNoMessage": "Введите секретное сообщение",
+  "applyMarkErrorNoFile": "Выберите музло",
+  "applyMarkErrorNoKey": "Создайте или выберите ключ",
+  "applyMarkSuccessSaved": "Файл успешно сохранён: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "readMarkTitle": "Прочитать знак",
+  "readMarkFileHint": "Выберите помеченное музло",
+  "readMarkImportHint": "Не забудьте предварительно импортировать данные от создателя водяного знака, чтобы смочь прочитать его.",
+  "readMarkOutputHint": "Здесь будет секретное сообщение",
+  "readMarkPatientCheckbox": "Использовать усердное чтение",
+  "readMarkPatientSubtitle": "Детектирует незначительные изменения скорости, но требует больше времени.",
+  "readMarkButton": "Прочитать водяной знак",
+  "readMarkErrorNoFile": "Выберите помеченное водяным знаком музло",
+  "readMarkSuccess": "Водяной знак успешно прочитан!",
+  "readMarkCopyButton": "Скопировать в буфер обмена",
+  "readMarkCopied": "Сообщение скопировано в буфер обмена",
+
+  "keysTitle": "Ключи",
+  "keysEmpty": "Ключей пока нет.",
+  "keysUnnamed": "(Без имени) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "keysCreateButton": "Создать новый ключ",
+  "keysDeleteConfirm": "Вы действительно хотите удалить сохранённый ключ \"{keyName}\"?",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
+  "keysDeleteTitle": "Удаление ключа",
+  "keysDeleted": "Ключ удалён",
+
+  "createKeyTitle": "Создать новый ключ",
+  "createKeyHint": "Введите имя ключа",
+  "createKeyErrorEmpty": "Имя ключа не может быть пустым",
+  "createKeyErrorMaxLength": "Максимум 128 символов",
+  "createKeyErrorInvalidChars": "Недопустимые символы в имени ключа",
+  "createKeyErrorGeneral": "Введите корректное имя ключа (1–128 символов)",
+
+  "selectKeyTitle": "Выберите ключ",
+
+  "codecDialogTitle": "Формат выходного аудио",
+  "codecLossyHeader": "Сжатие с потерями (Lossy):",
+  "codecLosslessHeader": "Без потерь (Lossless):",
+  "codecSelectButton": "Выбрать",
+
+  "progressDecoding": "Декодирование аудио",
+  "progressApplyingWatermark": "Наложение водяного знака",
+  "progressEncoding": "Кодирование аудио",
+  "progressReadingWatermark": "Чтение водяного знака",
+  "progressPreparing": "Подготовка...",
+  "progressDone": "Завершено",
+  "progressRunning": "Выполняется {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
+
+  "cancelButton": "Отмена",
+  "okButton": "Ок",
+
+  "importSuccess": "Данные успешно импортированы.",
+  "importErrorBadZip": "zip архив с неправильным содержимым",
+  "importErrorGeneral": "Ошибка импорта: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportSuccess": "Данные успешно экспортированы.",
+  "exportErrorGeneral": "Ошибка экспорта: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportDialogTitle": "Сохранить экспорт данных",
+
+  "errorDecoding": "Ошибка декодирования",
+  "errorApplyingWatermark": "Ошибка наложения водяного знака",
+  "errorEncoding": "Ошибка сжатия кодеком",
+  "errorSaving": "Ошибка сохранения",
+  "errorStegoExtraction": "Ошибка извлечения стего",
+  "errorWatermarkNotFound": "Водяной знак не обнаружен, или у вас нет к нему ключа.",
+  "errorDeleteKey": "Ошибка удаления ключа",
+  "errorCreateKey": "Ошибка создания ключа",
+  "errorExportData": "Ошибка экспорта данных",
+  "errorOperationCancelled": "Операция отменена",
+
+  "errorAudioTooShort": "Аудио слишком короткое для водяного знака (минимум 5 секунд)",
+  "errorStereoOnly": "Поддерживается только моно или стерео аудио (до 2 каналов)",
+  "errorAudioNotFound": "Входной аудиофайл не найден: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "permissionRequired": "Для работы приложения необходим доступ к аудиофайлам"
+}

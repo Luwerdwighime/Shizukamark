@@ -1,0 +1,97 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Shizukamark",
+
+  "homeApplyMark": "Apply mark",
+  "homeReadMark": "Read mark",
+  "homeKeys": "Known keys",
+  "homeImport": "Import data",
+  "homeExport": "Export data",
+
+  "applyMarkTitle": "Apply mark",
+  "applyMarkSecretHint": "Enter secret message",
+  "applyMarkFileHint": "Select audio file",
+  "applyMarkKeyHint": "Select key",
+  "applyMarkOr": "or",
+  "applyMarkCreateKey": "Create new key",
+  "applyMarkExportFolder": "Export folder: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "System folder Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "Custom save (save dialog)",
+  "applyMarkCustomFolder": "Save as: {path}",
+  "applyMarkButton": "Apply watermark",
+  "applyMarkErrorNoMessage": "Enter secret message",
+  "applyMarkErrorNoFile": "Select audio file",
+  "applyMarkErrorNoKey": "Create or select a key",
+  "applyMarkSuccessSaved": "File saved successfully: {path}",
+
+  "readMarkTitle": "Read mark",
+  "readMarkFileHint": "Select watermarked audio",
+  "readMarkImportHint": "Don't forget to import data from the watermark creator beforehand to be able to read it.",
+  "readMarkOutputHint": "Secret message will appear here",
+  "readMarkPatientCheckbox": "Use patient reading",
+  "readMarkPatientSubtitle": "Detects minor speed changes but takes longer.",
+  "readMarkButton": "Read watermark",
+  "readMarkErrorNoFile": "Select a watermarked audio file",
+  "readMarkSuccess": "Watermark read successfully!",
+  "readMarkCopyButton": "Copy to clipboard",
+  "readMarkCopied": "Message copied to clipboard",
+
+  "keysTitle": "Keys",
+  "keysEmpty": "No keys yet.",
+  "keysUnnamed": "(Unnamed) · {fileName}",
+  "keysCreateButton": "Create new key",
+  "keysDeleteConfirm": "Are you sure you want to delete saved key \"{keyName}\"?",
+  "keysDeleteTitle": "Delete key",
+  "keysDeleted": "Key deleted",
+
+  "createKeyTitle": "Create new key",
+  "createKeyHint": "Enter key name",
+  "createKeyErrorEmpty": "Key name cannot be empty",
+  "createKeyErrorMaxLength": "Maximum 128 characters",
+  "createKeyErrorInvalidChars": "Invalid characters in key name",
+  "createKeyErrorGeneral": "Enter a valid key name (1–128 characters)",
+
+  "selectKeyTitle": "Select key",
+
+  "codecDialogTitle": "Output audio format",
+  "codecLossyHeader": "Lossy compression:",
+  "codecLosslessHeader": "Lossless:",
+  "codecSelectButton": "Select",
+
+  "progressDecoding": "Decoding audio",
+  "progressApplyingWatermark": "Applying watermark",
+  "progressEncoding": "Encoding audio",
+  "progressReadingWatermark": "Reading watermark",
+  "progressPreparing": "Preparing...",
+  "progressDone": "Done",
+  "progressRunning": "Processing {operation}",
+
+  "cancelButton": "Cancel",
+  "okButton": "OK",
+
+  "importSuccess": "Data imported successfully.",
+  "importErrorBadZip": "Invalid zip archive contents",
+  "importErrorGeneral": "Import error: {error}",
+
+  "exportSuccess": "Data exported successfully.",
+  "exportErrorGeneral": "Export error: {error}",
+  "exportDialogTitle": "Save data export",
+
+  "errorDecoding": "Decoding error",
+  "errorApplyingWatermark": "Watermark application error",
+  "errorEncoding": "Codec compression error",
+  "errorSaving": "Save error",
+  "errorStegoExtraction": "Stego extraction error",
+  "errorWatermarkNotFound": "Watermark not found, or you don't have the key.",
+  "errorDeleteKey": "Key deletion error",
+  "errorCreateKey": "Key creation error",
+  "errorExportData": "Data export error",
+  "errorOperationCancelled": "Operation cancelled",
+
+  "errorAudioTooShort": "Audio too short for watermark (minimum 5 seconds)",
+  "errorStereoOnly": "Only mono or stereo audio supported (up to 2 channels)",
+  "errorAudioNotFound": "Input audio file not found: {path}",
+
+  "permissionRequired": "Audio file access is required for the app to work"
+}
