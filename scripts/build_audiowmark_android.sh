@@ -192,12 +192,18 @@ for ABI in "${ABIS[@]}"; do
 
         # Ensure lock-obj headers exist for Android targets
         mkdir -p "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg"
-        cp -n "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.aarch64-unknown-linux-gnu.h" \
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.aarch64-unknown-linux-gnu.h" \
               "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.aarch64-unknown-linux-android.h" 2>/dev/null || true
-        cp -n "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.x86_64-unknown-linux-gnu.h" \
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.x86_64-unknown-linux-gnu.h" \
               "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.x86_64-unknown-linux-android.h" 2>/dev/null || true
-        cp -n "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h" \
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.x86_64-unknown-linux-gnu.h" \
+              "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.linux-android.h" 2>/dev/null || true
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h" \
               "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.arm-unknown-linux-android.h" 2>/dev/null || true
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h" \
+              "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.armv7a-unknown-linux-androideabi.h" 2>/dev/null || true
+        cp -f "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h" \
+              "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/src/syscfg/lock-obj-pub.linux-androideabi.h" 2>/dev/null || true
 
         "$SRC_DIR/libgpg-error-$GPG_ERROR_VER/configure" \
             --host="$TARGET_HOST" \
