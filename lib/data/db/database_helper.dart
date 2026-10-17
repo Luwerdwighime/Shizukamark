@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 import '../../core/path_constants.dart';
@@ -105,9 +104,9 @@ class DatabaseHelper {
         limit: 1,
       );
       if (rows.isEmpty) {
-        return success(null);
+        return success<String?>(null);
       }
-      return success(rows.first['msg'] as String?);
+      return success<String?>(rows.first['msg'] as String);
     } catch (e) {
       return failure('Ошибка чтения из базы данных: $e');
     }

@@ -26,7 +26,7 @@ void main() {
     });
 
     test('success with void / null value', () {
-      final Result<void> res = success(null);
+      final Result<bool?> res = success(null);
       expect(res.value, isNull);
       expect(res.error, isNull);
       expect(res.isSuccess, isTrue);

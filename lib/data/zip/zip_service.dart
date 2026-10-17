@@ -65,10 +65,7 @@ class ZipService {
 
       // 3. Encode and write ZIP
       final ZipEncoder encoder = ZipEncoder();
-      final List<int>? zipBytes = encoder.encode(archive);
-      if (zipBytes == null) {
-        return failure('Ошибка упаковки zip-архива');
-      }
+      final List<int> zipBytes = encoder.encode(archive);
 
       final File destFile = File(destinationPath);
       await destFile.parent.create(recursive: true);

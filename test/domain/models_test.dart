@@ -17,7 +17,7 @@ void main() {
     });
 
     test('MessageEntity toMap and fromMap serialization', () {
-      final MessageEntity entity = MessageEntity(
+      const MessageEntity entity = MessageEntity(
         id: 1,
         msg: 'Secret note',
         hash: '0123456789abcdef0123456789abcdef',
@@ -46,7 +46,7 @@ void main() {
       expect(completed.isRunning, isFalse);
       expect(completed.isCompleted, isTrue);
 
-      final ProgressDialogState state = ProgressDialogState(
+      const ProgressDialogState state = ProgressDialogState(
         steps: [step],
         progress: 0.1,
         currentOperation: 'Decoding',

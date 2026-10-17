@@ -20,10 +20,13 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
 
   bool _isValid(String text) {
     final String trimmed = text.trim();
-    if (trimmed.isEmpty || trimmed.length > 128) return false;
+    if (trimmed.isEmpty || trimmed.length > 128) {
+      return false;
+    }
     for (final int cu in trimmed.codeUnits) {
-      if ((cu < 32 && cu != 9 && cu != 10 && cu != 13) || cu == 127)
+      if ((cu < 32 && cu != 9 && cu != 10 && cu != 13) || cu == 127) {
         return false;
+      }
     }
     return true;
   }

@@ -103,6 +103,7 @@ for ABI in "${ABIS[@]}"; do
     echo "=== Building for ABI: $ABI ==="
     echo "=================================================="
 
+    unset LIBS PKG_CONFIG_PATH PKG_CONFIG_LIBDIR
     PREFIX="$BUILD_DIR/prefix-$ABI"
     mkdir -p "$PREFIX/lib/pkgconfig" "$PREFIX/include"
 
@@ -133,7 +134,7 @@ for ABI in "${ABIS[@]}"; do
     export STRIP="$TOOLCHAIN/bin/llvm-strip"
     export CFLAGS="-fPIC -O3 -I$PREFIX/include"
     export CXXFLAGS="-fPIC -O3 -I$PREFIX/include"
-    export LDFLAGS="-L$PREFIX/lib -static-libstdc++"
+    export LDFLAGS="-L$PREFIX/lib"
 
     # 1. Build FFTW (single precision for audiowmark)
     if [ ! -f "$PREFIX/lib/libfftw3f.a" ]; then
@@ -306,6 +307,7 @@ EOF
     "$STRIP" "$DEST_DIR/libaudiowmark.so"
     chmod 755 "$DEST_DIR/libaudiowmark.so"
     echo "Successfully built $DEST_DIR/libaudiowmark.so"
+    unset LIBS PKG_CONFIG_PATH PKG_CONFIG_LIBDIR
 done
 
 echo "=== All ABIs built successfully! ==="

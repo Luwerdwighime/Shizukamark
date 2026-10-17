@@ -1,5 +1,5 @@
 /// Functional Result type as defined in the project specification:
-/// typedef Result<T> = ({T? value, String? error});
+/// `typedef Result<T> = ({T? value, String? error});`
 typedef Result<T> = ({T? value, String? error});
 
 Result<T> success<T>(T value) => (value: value, error: null);
