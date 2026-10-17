@@ -111,7 +111,8 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
               FsPickerField(
                 selectedPath: _inputAudioPath,
                 hintText: l10n.readMarkFileHint,
-                onFileSelected: (path) => setState(() => _inputAudioPath = path),
+                onFileSelected: (path) =>
+                    setState(() => _inputAudioPath = path),
               ),
               const SizedBox(height: 12),
 
@@ -143,7 +144,9 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
                       minLines: 4,
                       style: TextStyle(
                         fontSize: 15,
-                        color: hasMessage ? Colors.black87 : const Color(0xFF98A2B3),
+                        color: hasMessage
+                            ? Colors.black87
+                            : const Color(0xFF98A2B3),
                         height: 1.4,
                       ),
                     ),
@@ -188,7 +191,8 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: Text(l10n.readMarkButton, style: const TextStyle(fontSize: 16)),
+                child: Text(l10n.readMarkButton,
+                    style: const TextStyle(fontSize: 16)),
               ),
             ],
           ),

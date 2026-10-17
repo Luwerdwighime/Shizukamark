@@ -43,8 +43,11 @@ class ProgressDialogWidget extends StatelessWidget {
                         step.title,
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: step.isRunning ? FontWeight.bold : FontWeight.normal,
-                          color: step.isRunning ? Colors.black87 : Colors.black54,
+                          fontWeight: step.isRunning
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color:
+                              step.isRunning ? Colors.black87 : Colors.black54,
                         ),
                       ),
                       if (step.isCompleted)
@@ -53,7 +56,8 @@ class ProgressDialogWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black, // black UTF checkmark on light background
+                            color: Colors
+                                .black, // black UTF checkmark on light background
                           ),
                         )
                       else if (step.isRunning)
@@ -78,7 +82,8 @@ class ProgressDialogWidget extends StatelessWidget {
                   value: state.progress.clamp(0.0, 1.0),
                   minHeight: 8,
                   backgroundColor: const Color(0xFFE4E7EC),
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blueGrey),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(Colors.blueGrey),
                 ),
               ),
 
@@ -88,7 +93,8 @@ class ProgressDialogWidget extends StatelessWidget {
               Text(
                 state.currentOperation.isNotEmpty
                     ? (l10n != null
-                        ? l10n.progressRunning(state.currentOperation.toLowerCase())
+                        ? l10n.progressRunning(
+                            state.currentOperation.toLowerCase())
                         : 'Выполняется ${state.currentOperation.toLowerCase()}')
                     : '',
                 textAlign: TextAlign.center,
@@ -107,9 +113,11 @@ class ProgressDialogWidget extends StatelessWidget {
                   foregroundColor: const Color(0xFFD32F2F),
                   side: const BorderSide(color: Color(0xFFD32F2F)),
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
                 ),
-                child: Text(l10n?.cancelButton ?? 'Отмена', style: const TextStyle(fontSize: 16)),
+                child: Text(l10n?.cancelButton ?? 'Отмена',
+                    style: const TextStyle(fontSize: 16)),
               ),
             ],
           ),

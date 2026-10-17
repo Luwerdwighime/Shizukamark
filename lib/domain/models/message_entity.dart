@@ -30,5 +30,6 @@ class MessageEntity {
   }
 
   @override
-  String toString() => 'MessageEntity(id: $id, msg: $msg, hash: $hash, ts: $ts)';
+  String toString() =>
+      'MessageEntity(id: $id, msg: $msg, hash: $hash, ts: $ts)';
 }

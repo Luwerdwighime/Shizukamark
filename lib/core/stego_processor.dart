@@ -57,7 +57,8 @@ class AudiowmarkStegoProcessor implements StegoProcessor {
     }
     final List<KeyInfo> keys = keysRes.value ?? [];
     if (keys.isEmpty) {
-      return failure('В библиотеке нет ключей. Сначала создайте или импортируйте ключ.');
+      return failure(
+          'В библиотеке нет ключей. Сначала создайте или импортируйте ключ.');
     }
 
     final List<String> keyPaths = keys.map((k) => k.keyPath).toList();
@@ -80,8 +81,11 @@ class AudiowmarkStegoProcessor implements StegoProcessor {
 
     // 3. Search database for the first matching hash
     for (final String hash in foundHashes) {
-      final Result<String?> msgRes = await _databaseHelper.findMessageByHash(hash);
-      if (msgRes.isSuccess && msgRes.value != null && msgRes.value!.isNotEmpty) {
+      final Result<String?> msgRes =
+          await _databaseHelper.findMessageByHash(hash);
+      if (msgRes.isSuccess &&
+          msgRes.value != null &&
+          msgRes.value!.isNotEmpty) {
         return success(msgRes.value!);
       }
     }

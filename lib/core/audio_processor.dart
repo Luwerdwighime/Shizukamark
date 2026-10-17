@@ -47,7 +47,8 @@ class FFmpegAudioProcessor implements AudioProcessor {
         if (durationStr != null) {
           final double? duration = double.tryParse(durationStr);
           if (duration != null && duration < 5.0) {
-            return failure('Аудио слишком короткое для водяного знака (минимум 5 секунд)');
+            return failure(
+                'Аудио слишком короткое для водяного знака (минимум 5 секунд)');
           }
         }
 
@@ -57,7 +58,8 @@ class FFmpegAudioProcessor implements AudioProcessor {
           if (stream.getType() == 'audio') {
             final int? channels = stream.getNumberProperty('channels') as int?;
             if (channels != null && channels > 2) {
-              return failure('Поддерживается только моно или стерео аудио (до 2 каналов)');
+              return failure(
+                  'Поддерживается только моно или стерео аудио (до 2 каналов)');
             }
           }
         }
@@ -84,7 +86,8 @@ class FFmpegAudioProcessor implements AudioProcessor {
       return failure('Декодирование аудио отменено пользователем');
     } else {
       final failLog = await session.getFailStackTrace();
-      return failure('Ошибка декодирования: ${failLog ?? "Не удалось раскодировать аудио"}');
+      return failure(
+          'Ошибка декодирования: ${failLog ?? "Не удалось раскодировать аудио"}');
     }
   }
 
@@ -132,7 +135,8 @@ class FFmpegAudioProcessor implements AudioProcessor {
       return failure('Кодирование аудио отменено пользователем');
     } else {
       final failLog = await session.getFailStackTrace();
-      return failure('Ошибка сжатия кодеком: ${failLog ?? "Не удалось закодировать аудио"}');
+      return failure(
+          'Ошибка сжатия кодеком: ${failLog ?? "Не удалось закодировать аудио"}');
     }
   }
 }

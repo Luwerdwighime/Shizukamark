@@ -182,7 +182,8 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
               FsPickerField(
                 selectedPath: _inputAudioPath,
                 hintText: l10n.applyMarkFileHint,
-                onFileSelected: (path) => setState(() => _inputAudioPath = path),
+                onFileSelected: (path) =>
+                    setState(() => _inputAudioPath = path),
               ),
               const SizedBox(height: 16),
 
@@ -198,7 +199,8 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
               Center(
                 child: Text(
                   l10n.applyMarkOr,
-                  style: const TextStyle(color: Color(0xFF98A2B3), fontSize: 14),
+                  style:
+                      const TextStyle(color: Color(0xFF98A2B3), fontSize: 14),
                 ),
               ),
               const SizedBox(height: 8),
@@ -231,7 +233,8 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
                         l10n.applyMarkUseMediaStore,
                         style: const TextStyle(fontSize: 14),
                       ),
-                      onChanged: (val) => setState(() => _useCustomSave = false),
+                      onChanged: (val) =>
+                          setState(() => _useCustomSave = false),
                     ),
                     RadioListTile<bool>(
                       value: true,
@@ -257,7 +260,8 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: Text(l10n.applyMarkButton, style: const TextStyle(fontSize: 16)),
+                child: Text(l10n.applyMarkButton,
+                    style: const TextStyle(fontSize: 16)),
               ),
             ],
           ),

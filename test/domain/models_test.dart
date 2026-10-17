@@ -38,8 +38,10 @@ void main() {
     });
 
     test('OperationStep and ProgressDialogState copyWith', () {
-      const OperationStep step = OperationStep(title: 'Decoding', isRunning: true);
-      final OperationStep completed = step.copyWith(isRunning: false, isCompleted: true);
+      const OperationStep step =
+          OperationStep(title: 'Decoding', isRunning: true);
+      final OperationStep completed =
+          step.copyWith(isRunning: false, isCompleted: true);
       expect(completed.title, 'Decoding');
       expect(completed.isRunning, isFalse);
       expect(completed.isCompleted, isTrue);
@@ -49,7 +51,8 @@ void main() {
         progress: 0.1,
         currentOperation: 'Decoding',
       );
-      final ProgressDialogState updated = state.copyWith(progress: 0.5, currentOperation: 'Stego');
+      final ProgressDialogState updated =
+          state.copyWith(progress: 0.5, currentOperation: 'Stego');
       expect(updated.progress, 0.5);
       expect(updated.currentOperation, 'Stego');
     });

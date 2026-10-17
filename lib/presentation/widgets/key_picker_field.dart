@@ -26,7 +26,8 @@ class KeyPickerField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool hasSelection = selectedKey != null && selectedKey!.keyPath.isNotEmpty;
+    final bool hasSelection =
+        selectedKey != null && selectedKey!.keyPath.isNotEmpty;
     final String displayText = hasSelection
         ? (selectedKey!.name.isNotEmpty
             ? selectedKey!.name

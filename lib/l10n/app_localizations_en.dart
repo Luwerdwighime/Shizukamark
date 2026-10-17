@@ -42,10 +42,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get applyMarkCreateKey => 'Create new key';
 
   @override
-  String get applyMarkExportFolder => 'Export folder: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder =>
+      'Export folder: Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseMediaStore => 'System folder Music/Shizukamark (MediaStore)';
+  String get applyMarkUseMediaStore =>
+      'System folder Music/Shizukamark (MediaStore)';
 
   @override
   String get applyMarkUseCustomSave => 'Custom save (save dialog)';
@@ -79,7 +81,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readMarkFileHint => 'Select watermarked audio';
 
   @override
-  String get readMarkImportHint => 'Don\'t forget to import data from the watermark creator beforehand to be able to read it.';
+  String get readMarkImportHint =>
+      'Don\'t forget to import data from the watermark creator beforehand to be able to read it.';
 
   @override
   String get readMarkOutputHint => 'Secret message will appear here';
@@ -88,7 +91,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readMarkPatientCheckbox => 'Use patient reading';
 
   @override
-  String get readMarkPatientSubtitle => 'Detects minor speed changes but takes longer.';
+  String get readMarkPatientSubtitle =>
+      'Detects minor speed changes but takes longer.';
 
   @override
   String get readMarkButton => 'Read watermark';
@@ -146,7 +150,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createKeyErrorInvalidChars => 'Invalid characters in key name';
 
   @override
-  String get createKeyErrorGeneral => 'Enter a valid key name (1–128 characters)';
+  String get createKeyErrorGeneral =>
+      'Enter a valid key name (1–128 characters)';
 
   @override
   String get selectKeyTitle => 'Select key';
@@ -230,7 +235,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorStegoExtraction => 'Stego extraction error';
 
   @override
-  String get errorWatermarkNotFound => 'Watermark not found, or you don\'t have the key.';
+  String get errorWatermarkNotFound =>
+      'Watermark not found, or you don\'t have the key.';
 
   @override
   String get errorDeleteKey => 'Key deletion error';
@@ -245,10 +251,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorOperationCancelled => 'Operation cancelled';
 
   @override
-  String get errorAudioTooShort => 'Audio too short for watermark (minimum 5 seconds)';
+  String get errorAudioTooShort =>
+      'Audio too short for watermark (minimum 5 seconds)';
 
   @override
-  String get errorStereoOnly => 'Only mono or stereo audio supported (up to 2 channels)';
+  String get errorStereoOnly =>
+      'Only mono or stereo audio supported (up to 2 channels)';
 
   @override
   String errorAudioNotFound(String path) {
@@ -256,5 +264,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get permissionRequired => 'Audio file access is required for the app to work';
+  String get permissionRequired =>
+      'Audio file access is required for the app to work';
 }

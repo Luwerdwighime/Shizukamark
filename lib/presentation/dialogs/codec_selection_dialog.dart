@@ -38,7 +38,10 @@ class _CodecSelectionDialogState extends State<CodecSelectionDialog> {
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 4),
               child: Text(
                 l10n.codecLossyHeader,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blueGrey),
+                style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey),
               ),
             ),
             _buildRadio(AudioCodec.aac),
@@ -49,7 +52,10 @@ class _CodecSelectionDialogState extends State<CodecSelectionDialog> {
               padding: const EdgeInsets.only(left: 12, top: 4, bottom: 4),
               child: Text(
                 l10n.codecLosslessHeader,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blueGrey),
+                style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey),
               ),
             ),
             _buildRadio(AudioCodec.flac),

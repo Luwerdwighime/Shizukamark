@@ -12,7 +12,8 @@ key 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
       final parsed = KeysStorage.parseKeyFile(content);
       expect(parsed.name, 'Artist Master Key 2026');
-      expect(parsed.hexKey, '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
+      expect(parsed.hexKey,
+          '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
     });
 
     test('parses .key file without name (unnamed key)', () {
@@ -23,7 +24,8 @@ key c6141f3d25720eb0dbd0e38ee2355ff40123456789abcdef0123456789abcdef
 
       final parsed = KeysStorage.parseKeyFile(content);
       expect(parsed.name, '');
-      expect(parsed.hexKey, 'c6141f3d25720eb0dbd0e38ee2355ff40123456789abcdef0123456789abcdef');
+      expect(parsed.hexKey,
+          'c6141f3d25720eb0dbd0e38ee2355ff40123456789abcdef0123456789abcdef');
     });
 
     test('parses .key file with empty or malformed lines gracefully', () {
@@ -45,7 +47,8 @@ key 11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff
 
       final parsed = KeysStorage.parseKeyFile(content);
       expect(parsed.name, 'Studio A / Track #1 (Final)');
-      expect(parsed.hexKey, '11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff');
+      expect(parsed.hexKey,
+          '11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff');
     });
   });
 }

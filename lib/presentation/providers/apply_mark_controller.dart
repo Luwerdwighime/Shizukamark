@@ -93,7 +93,8 @@ class ApplyMarkController {
     try {
       // --- STEP 1: Decode to PCM WAV 16-bit ---
       if (_isCancelled) return failure('Операция отменена');
-      final Result<void> decodeRes = await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
+      final Result<void> decodeRes =
+          await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
       if (decodeRes.isError) {
         return failure(decodeRes.error!);
       }
@@ -160,7 +161,8 @@ class ApplyMarkController {
           return failure('Ошибка сохранения: $e');
         }
       } else {
-        final Result<String> saveRes = await NativeChannel.saveAudioToMediaStore(
+        final Result<String> saveRes =
+            await NativeChannel.saveAudioToMediaStore(
           filePath: tempEncodedPath,
           fileName: targetFileName,
           mimeType: codec.mimeType,

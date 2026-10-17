@@ -35,7 +35,8 @@ class KeysStorage {
     final Random random = Random.secure();
 
     while (true) {
-      final List<int> randomBytes = List<int>.generate(16, (_) => random.nextInt(256));
+      final List<int> randomBytes =
+          List<int>.generate(16, (_) => random.nextInt(256));
       final String fullHash = sha256.convert(randomBytes).toString();
       final String shortHex = fullHash.substring(0, 8).toLowerCase();
       final String fileName = '$shortHex.key';
@@ -133,7 +134,8 @@ class KeysStorage {
   Future<Result<void>> deleteKey(String keyPath) async {
     try {
       final String docs = await PathConstants.getDocsDir();
-      final String fullPath = p.isAbsolute(keyPath) ? keyPath : p.join(docs, keyPath);
+      final String fullPath =
+          p.isAbsolute(keyPath) ? keyPath : p.join(docs, keyPath);
       final File file = File(fullPath);
       if (await file.exists()) {
         await file.delete();
@@ -153,7 +155,8 @@ class KeysStorage {
         if (entity is File && entity.path.endsWith('.key')) {
           final String content = await entity.readAsString();
           final parsed = parseKeyFile(content);
-          if (parsed.hexKey != null && parsed.hexKey!.toLowerCase() == hexKey.toLowerCase()) {
+          if (parsed.hexKey != null &&
+              parsed.hexKey!.toLowerCase() == hexKey.toLowerCase()) {
             return true;
           }
         }
@@ -165,4 +168,3 @@ class KeysStorage {
 
 /// Keys wrapper alias as specified in the architecture specification
 typedef Keys = KeysStorage;
-

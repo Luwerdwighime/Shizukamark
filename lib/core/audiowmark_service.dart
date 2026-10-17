@@ -21,7 +21,8 @@ class AudiowmarkService {
 
   /// Resolves the absolute path to libaudiowmark.so in nativeLibraryDir
   Future<Result<String>> _getBinaryPath() async {
-    final Result<String> nativeDirRes = await NativeChannel.getNativeLibraryDir();
+    final Result<String> nativeDirRes =
+        await NativeChannel.getNativeLibraryDir();
     if (nativeDirRes.isError) {
       return failure(nativeDirRes.error!);
     }
@@ -53,8 +54,12 @@ class AudiowmarkService {
       final StringBuffer stdoutBuf = StringBuffer();
       final StringBuffer stderrBuf = StringBuffer();
 
-      process.stdout.transform(utf8.decoder).listen((data) => stdoutBuf.write(data));
-      process.stderr.transform(utf8.decoder).listen((data) => stderrBuf.write(data));
+      process.stdout
+          .transform(utf8.decoder)
+          .listen((data) => stdoutBuf.write(data));
+      process.stderr
+          .transform(utf8.decoder)
+          .listen((data) => stderrBuf.write(data));
 
       final int exitCode = await process.exitCode;
       _activeProcess = null;
@@ -77,7 +82,8 @@ class AudiowmarkService {
   }
 
   /// Generates a new key: ["gen-key", "--key", "keys/$fileName", "--name", name]
-  Future<Result<void>> genKey({required String fileName, required String name}) async {
+  Future<Result<void>> genKey(
+      {required String fileName, required String name}) async {
     final List<String> args = [
       'gen-key',
       '--key',
@@ -183,4 +189,3 @@ class AudiowmarkService {
 
 /// Audiowmark wrapper alias as specified in the architecture specification
 typedef Audiowmark = AudiowmarkService;
-

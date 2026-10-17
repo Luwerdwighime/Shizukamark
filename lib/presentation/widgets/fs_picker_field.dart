@@ -12,7 +12,15 @@ class FsPickerField extends StatelessWidget {
     required this.selectedPath,
     required this.hintText,
     required this.onFileSelected,
-    this.allowedExtensions = const ['mp3', 'wav', 'flac', 'm4a', 'aac', 'opus', 'ogg'],
+    this.allowedExtensions = const [
+      'mp3',
+      'wav',
+      'flac',
+      'm4a',
+      'aac',
+      'opus',
+      'ogg'
+    ],
   });
 
   Future<void> _pickFile(BuildContext context) async {

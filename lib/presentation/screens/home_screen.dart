@@ -38,7 +38,8 @@ class HomeScreen extends ConsumerWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        SnackBarService.showError(context, l10n.importErrorGeneral(e.toString()));
+        SnackBarService.showError(
+            context, l10n.importErrorGeneral(e.toString()));
       }
     }
   }
@@ -46,7 +47,8 @@ class HomeScreen extends ConsumerWidget {
   Future<void> _handleExport(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
     try {
-      final String defaultName = 'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
+      final String defaultName =
+          'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
       String? outputPath = await FilePicker.platform.saveFile(
         dialogTitle: l10n.exportDialogTitle,
         fileName: defaultName,
@@ -72,7 +74,8 @@ class HomeScreen extends ConsumerWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        SnackBarService.showError(context, l10n.exportErrorGeneral(e.toString()));
+        SnackBarService.showError(
+            context, l10n.exportErrorGeneral(e.toString()));
       }
     }
   }
@@ -91,7 +94,8 @@ class HomeScreen extends ConsumerWidget {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 480),
               child: Column(
@@ -101,7 +105,8 @@ class HomeScreen extends ConsumerWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const ApplyMarkScreen()),
+                        MaterialPageRoute(
+                            builder: (_) => const ApplyMarkScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -109,13 +114,15 @@ class HomeScreen extends ConsumerWidget {
                       backgroundColor: Colors.blueGrey.shade800,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text(l10n.homeApplyMark, style: const TextStyle(fontSize: 18)),
+                    child: Text(l10n.homeApplyMark,
+                        style: const TextStyle(fontSize: 18)),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const ReadMarkScreen()),
+                        MaterialPageRoute(
+                            builder: (_) => const ReadMarkScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -123,7 +130,8 @@ class HomeScreen extends ConsumerWidget {
                       backgroundColor: Colors.blueGrey.shade700,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text(l10n.homeReadMark, style: const TextStyle(fontSize: 18)),
+                    child: Text(l10n.homeReadMark,
+                        style: const TextStyle(fontSize: 18)),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -137,7 +145,8 @@ class HomeScreen extends ConsumerWidget {
                       backgroundColor: Colors.blueGrey.shade600,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text(l10n.homeKeys, style: const TextStyle(fontSize: 18)),
+                    child: Text(l10n.homeKeys,
+                        style: const TextStyle(fontSize: 18)),
                   ),
                   const SizedBox(height: 32),
                   const Divider(),
@@ -145,7 +154,8 @@ class HomeScreen extends ConsumerWidget {
                   OutlinedButton.icon(
                     onPressed: () => _handleImport(context, ref),
                     icon: const Icon(Icons.file_download_outlined),
-                    label: Text(l10n.homeImport, style: const TextStyle(fontSize: 16)),
+                    label: Text(l10n.homeImport,
+                        style: const TextStyle(fontSize: 16)),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
@@ -154,7 +164,8 @@ class HomeScreen extends ConsumerWidget {
                   OutlinedButton.icon(
                     onPressed: () => _handleExport(context),
                     icon: const Icon(Icons.file_upload_outlined),
-                    label: Text(l10n.homeExport, style: const TextStyle(fontSize: 16)),
+                    label: Text(l10n.homeExport,
+                        style: const TextStyle(fontSize: 16)),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),

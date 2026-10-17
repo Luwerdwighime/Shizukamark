@@ -14,16 +14,19 @@ import '../widgets/snack_bar_service.dart';
 class KeysScreen extends ConsumerWidget {
   const KeysScreen({super.key});
 
-  Future<void> _handleDeleteKey(BuildContext context, WidgetRef ref, KeyInfo key) async {
+  Future<void> _handleDeleteKey(
+      BuildContext context, WidgetRef ref, KeyInfo key) async {
     final l10n = AppLocalizations.of(context)!;
-    final String displayName = key.name.isNotEmpty ? key.name : p.basename(key.keyPath);
+    final String displayName =
+        key.name.isNotEmpty ? key.name : p.basename(key.keyPath);
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => ConfirmDeleteDialog(keyName: displayName),
     );
 
     if (confirmed == true) {
-      final Result<void> delRes = await ref.read(keysProvider.notifier).deleteKey(key.keyPath);
+      final Result<void> delRes =
+          await ref.read(keysProvider.notifier).deleteKey(key.keyPath);
       if (delRes.isSuccess && context.mounted) {
         SnackBarService.showSuccess(context, l10n.keysDeleted);
       } else if (context.mounted) {
@@ -64,7 +67,8 @@ class KeysScreen extends ConsumerWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        SnackBarService.showError(context, l10n.importErrorGeneral(e.toString()));
+        SnackBarService.showError(
+            context, l10n.importErrorGeneral(e.toString()));
       }
     }
   }
@@ -72,7 +76,8 @@ class KeysScreen extends ConsumerWidget {
   Future<void> _handleExport(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
     try {
-      final String defaultName = 'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
+      final String defaultName =
+          'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
       String? outputPath = await FilePicker.platform.saveFile(
         dialogTitle: l10n.exportDialogTitle,
         fileName: defaultName,
@@ -98,7 +103,8 @@ class KeysScreen extends ConsumerWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        SnackBarService.showError(context, l10n.exportErrorGeneral(e.toString()));
+        SnackBarService.showError(
+            context, l10n.exportErrorGeneral(e.toString()));
       }
     }
   }
@@ -121,16 +127,19 @@ class KeysScreen extends ConsumerWidget {
               // 1. Многострочный пролистываемый список ключей
               Expanded(
                 child: keysAsync.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (err, _) => Center(
-                    child: Text('Ошибка: $err', style: const TextStyle(color: Colors.red)),
+                    child: Text('Ошибка: $err',
+                        style: const TextStyle(color: Colors.red)),
                   ),
                   data: (keys) {
                     if (keys.isEmpty) {
                       return Center(
                         child: Text(
                           l10n.keysEmpty,
-                          style: const TextStyle(fontSize: 16, color: Colors.black54),
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black54),
                         ),
                       );
                     }
@@ -150,7 +159,8 @@ class KeysScreen extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: const Color(0xFFD0D5DD)),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 8),
                           child: Row(
                             children: [
                               // Left: non-editable text field with key name
@@ -175,7 +185,8 @@ class KeysScreen extends ConsumerWidget {
                                   ),
                                 ),
                                 tooltip: l10n.keysDeleteTitle,
-                                onPressed: () => _handleDeleteKey(context, ref, key),
+                                onPressed: () =>
+                                    _handleDeleteKey(context, ref, key),
                               ),
                             ],
                           ),

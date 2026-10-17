@@ -20,7 +20,8 @@ class KeysNotifier extends StateNotifier<AsyncValue<List<KeyInfo>>> {
     if (res.isSuccess) {
       state = AsyncValue.data(res.value ?? []);
     } else {
-      state = AsyncValue.error(res.error ?? 'Ошибка загрузки ключей', StackTrace.current);
+      state = AsyncValue.error(
+          res.error ?? 'Ошибка загрузки ключей', StackTrace.current);
     }
   }
 
@@ -41,7 +42,8 @@ class KeysNotifier extends StateNotifier<AsyncValue<List<KeyInfo>>> {
   }
 }
 
-final keysProvider = StateNotifierProvider<KeysNotifier, AsyncValue<List<KeyInfo>>>((ref) {
+final keysProvider =
+    StateNotifierProvider<KeysNotifier, AsyncValue<List<KeyInfo>>>((ref) {
   final storage = ref.watch(keysStorageProvider);
   return KeysNotifier(storage);
 });

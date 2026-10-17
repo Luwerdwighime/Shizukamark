@@ -9,7 +9,8 @@ void main() {
       const String testMsg = 'Hello, World!';
       final List<int> utf8Bytes = utf8.encode(testMsg);
       final String expectedFullSha256 = sha256.convert(utf8Bytes).toString();
-      final String expectedHash32 = expectedFullSha256.substring(0, 32).toLowerCase();
+      final String expectedHash32 =
+          expectedFullSha256.substring(0, 32).toLowerCase();
 
       final String actualHash = ApplyMarkController.computeMessageHash(testMsg);
       expect(actualHash, expectedHash32);
@@ -21,7 +22,8 @@ void main() {
       const String testMsg = 'Секретное сообщение для стеганографии';
       final List<int> utf8Bytes = utf8.encode(testMsg);
       final String expectedFullSha256 = sha256.convert(utf8Bytes).toString();
-      final String expectedHash32 = expectedFullSha256.substring(0, 32).toLowerCase();
+      final String expectedHash32 =
+          expectedFullSha256.substring(0, 32).toLowerCase();
 
       final String actualHash = ApplyMarkController.computeMessageHash(testMsg);
       expect(actualHash, expectedHash32);

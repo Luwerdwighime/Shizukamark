@@ -2,12 +2,14 @@ import 'package:flutter/services.dart';
 import 'result.dart';
 
 class NativeChannel {
-  static const MethodChannel _channel = MethodChannel('com.luwerdwighime.shizukamark/native');
+  static const MethodChannel _channel =
+      MethodChannel('com.luwerdwighime.shizukamark/native');
 
   /// Retrieves applicationInfo.nativeLibraryDir on Android
   static Future<Result<String>> getNativeLibraryDir() async {
     try {
-      final String? path = await _channel.invokeMethod<String>('getNativeLibraryDir');
+      final String? path =
+          await _channel.invokeMethod<String>('getNativeLibraryDir');
       if (path == null || path.isEmpty) {
         return failure('Не удалось получить директорию нативных библиотек');
       }

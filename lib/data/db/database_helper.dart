@@ -14,7 +14,11 @@ class DatabaseHelper {
     if (msg.trim().isEmpty) return false;
     for (final int codeUnit in msg.codeUnits) {
       // Allow standard printable characters and common newlines/tabs
-      if ((codeUnit < 32 && codeUnit != 9 && codeUnit != 10 && codeUnit != 13) || codeUnit == 127) {
+      if ((codeUnit < 32 &&
+              codeUnit != 9 &&
+              codeUnit != 10 &&
+              codeUnit != 13) ||
+          codeUnit == 127) {
         return false;
       }
     }
@@ -59,7 +63,8 @@ class DatabaseHelper {
     required int ts,
   }) async {
     if (!isValidMessage(msg)) {
-      return failure('Некорректное сообщение: должно содержать печатные символы');
+      return failure(
+          'Некорректное сообщение: должно содержать печатные символы');
     }
     final String lowerHash = hash.toLowerCase();
     if (!isValidHash(lowerHash)) {
@@ -116,7 +121,8 @@ class DatabaseHelper {
         'messages',
         orderBy: 'ts DESC',
       );
-      final List<MessageEntity> list = rows.map((r) => MessageEntity.fromMap(r)).toList();
+      final List<MessageEntity> list =
+          rows.map((r) => MessageEntity.fromMap(r)).toList();
       return success(list);
     } catch (e) {
       return failure('Ошибка чтения списка сообщений: $e');
@@ -134,4 +140,3 @@ class DatabaseHelper {
 
 /// Messages wrapper alias as specified in the architecture specification
 typedef Messages = DatabaseHelper;
-

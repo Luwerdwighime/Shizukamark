@@ -22,7 +22,8 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
     final String trimmed = text.trim();
     if (trimmed.isEmpty || trimmed.length > 128) return false;
     for (final int cu in trimmed.codeUnits) {
-      if ((cu < 32 && cu != 9 && cu != 10 && cu != 13) || cu == 127) return false;
+      if ((cu < 32 && cu != 9 && cu != 10 && cu != 13) || cu == 127)
+        return false;
     }
     return true;
   }
@@ -51,7 +52,8 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
     }
 
     setState(() => _isLoading = true);
-    final Result<KeyInfo> result = await ref.read(keysProvider.notifier).createKey(name);
+    final Result<KeyInfo> result =
+        await ref.read(keysProvider.notifier).createKey(name);
     setState(() => _isLoading = false);
 
     if (result.isSuccess && mounted) {
@@ -95,7 +97,10 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
         ElevatedButton(
           onPressed: canSubmit ? () => _submit(l10n) : null,
           child: _isLoading
-              ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2))
               : Text(l10n.okButton),
         ),
       ],

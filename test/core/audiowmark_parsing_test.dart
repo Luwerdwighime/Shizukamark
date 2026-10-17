@@ -26,11 +26,13 @@ pattern  2:59 1c13f1532eeb6c9aa719253736849d6e 0.167 0.389 A
       expect(hashes, contains('d7d7ed21e9d6da0a4ffdd5e55ffdb623'));
       expect(hashes, contains('1c13f1532eeb6c9aa719253736849d6e'));
       // Check deduplication (0123456789abcdef0011223344556677 appears multiple times)
-      final List<String> firstHashOccurrences = hashes.where((h) => h == '0123456789abcdef0011223344556677').toList();
+      final List<String> firstHashOccurrences =
+          hashes.where((h) => h == '0123456789abcdef0011223344556677').toList();
       expect(firstHashOccurrences.length, 1);
     });
 
-    test('parses pattern lines with patient option and speed lines ignored', () {
+    test('parses pattern lines with patient option and speed lines ignored',
+        () {
       const String stdout = '''
 speed 1.049966
 pattern  0:05 0123456789abcdef0011223344556677 1.209 0.147 A-SPEED

@@ -21,7 +21,9 @@ class ZipService {
 
   /// Sanitizes an archive file path against Zip-Slip path traversal vulnerability
   static bool isSafePath(String entryName) {
-    if (entryName.startsWith('/') || entryName.startsWith('\\') || entryName.contains(':')) {
+    if (entryName.startsWith('/') ||
+        entryName.startsWith('\\') ||
+        entryName.contains(':')) {
       return false;
     }
     final List<String> segments = p.split(entryName);
@@ -42,7 +44,8 @@ class ZipService {
       final File dbFile = File(p.join(docs, PathConstants.dbName));
       if (await dbFile.exists()) {
         final List<int> dbBytes = await dbFile.readAsBytes();
-        archive.addFile(ArchiveFile(PathConstants.dbName, dbBytes.length, dbBytes));
+        archive.addFile(
+            ArchiveFile(PathConstants.dbName, dbBytes.length, dbBytes));
       }
 
       // 2. Ensure keys/ directory entry is present in archive
@@ -54,7 +57,8 @@ class ZipService {
           if (entity is File && entity.path.endsWith('.key')) {
             final List<int> keyBytes = await entity.readAsBytes();
             final String fileName = p.basename(entity.path);
-            archive.addFile(ArchiveFile('keys/$fileName', keyBytes.length, keyBytes));
+            archive.addFile(
+                ArchiveFile('keys/$fileName', keyBytes.length, keyBytes));
           }
         }
       }
@@ -121,9 +125,11 @@ class ZipService {
         if (file.isFile) {
           final List<int> data = file.content as List<int>;
           if (normalized == PathConstants.dbName) {
-            tempDbFile = File(p.join(tempExtractDir.path, PathConstants.dbName));
+            tempDbFile =
+                File(p.join(tempExtractDir.path, PathConstants.dbName));
             await tempDbFile.writeAsBytes(data);
-          } else if (normalized.startsWith('keys/') && normalized.endsWith('.key')) {
+          } else if (normalized.startsWith('keys/') &&
+              normalized.endsWith('.key')) {
             candidateKeys.add((name: p.basename(normalized), bytes: data));
           }
         }
@@ -156,7 +162,8 @@ class ZipService {
         final parsed = KeysStorage.parseKeyFile(content);
 
         if (parsed.hexKey != null && parsed.hexKey!.isNotEmpty) {
-          final bool alreadyExists = await _keysStorage.hasKeyWithHex(parsed.hexKey!);
+          final bool alreadyExists =
+              await _keysStorage.hasKeyWithHex(parsed.hexKey!);
           if (alreadyExists) {
             // Key is already present in library -> skip creating duplicate
             continue;
@@ -164,7 +171,8 @@ class ZipService {
         }
 
         // New key -> generate unique 8-hex filename and save
-        final String newFileName = await _keysStorage.generateUniqueKeyFileName();
+        final String newFileName =
+            await _keysStorage.generateUniqueKeyFileName();
         final File newKeyFile = File(p.join(localKeysDir.path, newFileName));
         await newKeyFile.writeAsBytes(keyData.bytes);
       }
@@ -186,5 +194,5 @@ class ZipService {
 Future<Result<void>> zipIn(String sourcePath) => ZipService().zipIn(sourcePath);
 
 /// Top-level zipOut function per specification call tree
-Future<Result<void>> zipOut(String destinationPath) => ZipService().zipOut(destinationPath);
-
+Future<Result<void>> zipOut(String destinationPath) =>
+    ZipService().zipOut(destinationPath);

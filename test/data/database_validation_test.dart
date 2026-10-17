@@ -6,8 +6,12 @@ void main() {
     test('isValidMessage allows standard printable Unicode strings', () {
       expect(DatabaseHelper.isValidMessage('Hello World!'), isTrue);
       expect(DatabaseHelper.isValidMessage('Привет, мир! 12345'), isTrue);
-      expect(DatabaseHelper.isValidMessage('Multiline\nMessage\r\nWith\tTabs'), isTrue);
-      expect(DatabaseHelper.isValidMessage('Special symbols: #@\$%^&*()_+-=[]{}|;:",.<>?/'), isTrue);
+      expect(DatabaseHelper.isValidMessage('Multiline\nMessage\r\nWith\tTabs'),
+          isTrue);
+      expect(
+          DatabaseHelper.isValidMessage(
+              'Special symbols: #@\$%^&*()_+-=[]{}|;:",.<>?/'),
+          isTrue);
     });
 
     test('isValidMessage rejects empty or whitespace-only messages', () {
@@ -25,19 +29,25 @@ void main() {
     });
 
     test('isValidHash accepts exact 32 lowercase hex characters', () {
-      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdef'), isTrue);
-      expect(DatabaseHelper.isValidHash('c6141f3d25720eb0dbd0e38ee2355ff4'), isTrue);
+      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdef'),
+          isTrue);
+      expect(DatabaseHelper.isValidHash('c6141f3d25720eb0dbd0e38ee2355ff4'),
+          isTrue);
     });
 
     test('isValidHash rejects non-32 characters or non-hex characters', () {
       // 31 characters
-      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcde'), isFalse);
+      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcde'),
+          isFalse);
       // 33 characters
-      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdef0'), isFalse);
+      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdef0'),
+          isFalse);
       // Uppercase characters
-      expect(DatabaseHelper.isValidHash('0123456789ABCDEF0123456789ABCDEF'), isFalse);
+      expect(DatabaseHelper.isValidHash('0123456789ABCDEF0123456789ABCDEF'),
+          isFalse);
       // Non-hex characters
-      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdeg'), isFalse);
+      expect(DatabaseHelper.isValidHash('0123456789abcdef0123456789abcdeg'),
+          isFalse);
       expect(DatabaseHelper.isValidHash(''), isFalse);
     });
   });

@@ -59,7 +59,8 @@ class ReadMarkController {
     try {
       // --- STEP 1: Decode to PCM WAV 16-bit ---
       if (_isCancelled) return failure('Операция отменена');
-      final Result<void> decodeRes = await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
+      final Result<void> decodeRes =
+          await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
       if (decodeRes.isError) {
         return failure('Ошибка декодирования: ${decodeRes.error}');
       }
@@ -76,7 +77,8 @@ class ReadMarkController {
 
       // --- STEP 2: StegoProcessor Get ---
       if (_isCancelled) return failure('Операция отменена');
-      final Result<String> stegoRes = await _stegoProcessor.get(PathConstants.inWav, isPatient);
+      final Result<String> stegoRes =
+          await _stegoProcessor.get(PathConstants.inWav, isPatient);
       if (stegoRes.isError) {
         return failure(stegoRes.error!);
       }

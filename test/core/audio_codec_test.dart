@@ -16,17 +16,20 @@ void main() {
     test('AAC codec properties per specification', () {
       expect(AudioCodec.aac.extension, '.m4a');
       expect(AudioCodec.aac.mimeType, 'audio/mp4');
-      expect(AudioCodec.aac.ffmpegArgs, containsAllInOrder(['-c:a', 'aac', '-b:a', '192k']));
+      expect(AudioCodec.aac.ffmpegArgs,
+          containsAllInOrder(['-c:a', 'aac', '-b:a', '192k']));
     });
 
     test('Opus codec properties per specification', () {
       expect(AudioCodec.opus.extension, '.opus');
-      expect(AudioCodec.opus.ffmpegArgs, containsAllInOrder(['-c:a', 'libopus', '-b:a', '128k']));
+      expect(AudioCodec.opus.ffmpegArgs,
+          containsAllInOrder(['-c:a', 'libopus', '-b:a', '128k']));
     });
 
     test('MP3 codec properties per specification', () {
       expect(AudioCodec.mp3.extension, '.mp3');
-      expect(AudioCodec.mp3.ffmpegArgs, containsAllInOrder(['-c:a', 'libmp3lame', '-b:a', '192k']));
+      expect(AudioCodec.mp3.ffmpegArgs,
+          containsAllInOrder(['-c:a', 'libmp3lame', '-b:a', '192k']));
     });
 
     test('FLAC codec properties per specification', () {
@@ -36,7 +39,8 @@ void main() {
 
     test('WAV codec properties per specification', () {
       expect(AudioCodec.wav.extension, '.wav');
-      expect(AudioCodec.wav.ffmpegArgs, containsAllInOrder(['-c:a', 'pcm_s16le']));
+      expect(
+          AudioCodec.wav.ffmpegArgs, containsAllInOrder(['-c:a', 'pcm_s16le']));
     });
 
     test('ALAC codec properties per specification', () {
