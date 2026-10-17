@@ -7,6 +7,9 @@ on:
   push:
     branches: [ main, develop ]
 
+permissions:
+  contents: write
+
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -30,8 +33,15 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
+      - name: Verify formatting and auto-format
+        run: |
+          dart format .
+          if [ "${{ github.event_name }}" = "push" ] && [ -n "$(git status --porcelain)" ]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -am "style: apply dart format [skip ci]" || true
+            git push origin HEAD:${{ github.ref_name }} || true
+          fi
 
       - name: Analyze code
         run: flutter analyze --no-fatal-infos

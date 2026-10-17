@@ -41,43 +41,55 @@ cd "$SRC_DIR"
 # 1. Download FFTW
 if [ ! -d "fftw-$FFTW_VER" ]; then
     echo "=== Downloading FFTW $FFTW_VER ==="
-    curl -sSL "https://www.fftw.org/fftw-$FFTW_VER.tar.gz" || \
-    curl -sSL "http://www.fftw.org/fftw-$FFTW_VER.tar.gz" | tar -xz
+    (curl -sSL "https://www.fftw.org/fftw-$FFTW_VER.tar.gz" -o fftw.tar.gz || \
+     curl -sSL "http://www.fftw.org/fftw-$FFTW_VER.tar.gz" -o fftw.tar.gz)
+    tar -xzf fftw.tar.gz
+    rm -f fftw.tar.gz
 fi
 
 # 2. Download libsndfile
 if [ ! -d "libsndfile-$SNDFILE_VER" ]; then
     echo "=== Downloading libsndfile $SNDFILE_VER ==="
-    curl -sSL "https://github.com/libsndfile/libsndfile/releases/download/$SNDFILE_VER/libsndfile-$SNDFILE_VER.tar.xz" | tar -xJ
+    curl -sSL "https://github.com/libsndfile/libsndfile/releases/download/$SNDFILE_VER/libsndfile-$SNDFILE_VER.tar.xz" -o libsndfile.tar.xz
+    tar -xJf libsndfile.tar.xz
+    rm -f libsndfile.tar.xz
 fi
 
 # 3. Download mpg123
 if [ ! -d "mpg123-$MPG123_VER" ]; then
     echo "=== Downloading mpg123 $MPG123_VER ==="
-    curl -sSL "https://www.mpg123.de/download/mpg123-$MPG123_VER.tar.bz2" || \
-    curl -sSL "https://downloads.sourceforge.net/project/mpg123/mpg123/$MPG123_VER/mpg123-$MPG123_VER.tar.bz2" | tar -xj
+    (curl -sSL "https://www.mpg123.de/download/mpg123-$MPG123_VER.tar.bz2" -o mpg123.tar.bz2 || \
+     curl -sSL "https://downloads.sourceforge.net/project/mpg123/mpg123/$MPG123_VER/mpg123-$MPG123_VER.tar.bz2" -o mpg123.tar.bz2)
+    tar -xjf mpg123.tar.bz2
+    rm -f mpg123.tar.bz2
 fi
 
 # 4. Download libgpg-error
 if [ ! -d "libgpg-error-$GPG_ERROR_VER" ]; then
     echo "=== Downloading libgpg-error $GPG_ERROR_VER ==="
-    curl -sSL "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" || \
-    curl -sSL "https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" || \
-    curl -sSL "https://mirrors.dotsrc.org/gnupg/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" | tar -xj
+    (curl -sSL "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" -o gpg-error.tar.bz2 || \
+     curl -sSL "https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" -o gpg-error.tar.bz2 || \
+     curl -sSL "https://mirrors.dotsrc.org/gnupg/libgpg-error/libgpg-error-$GPG_ERROR_VER.tar.bz2" -o gpg-error.tar.bz2)
+    tar -xjf gpg-error.tar.bz2
+    rm -f gpg-error.tar.bz2
 fi
 
 # 5. Download libgcrypt
 if [ ! -d "libgcrypt-$GCRYPT_VER" ]; then
     echo "=== Downloading libgcrypt $GCRYPT_VER ==="
-    curl -sSL "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" || \
-    curl -sSL "https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" || \
-    curl -sSL "https://mirrors.dotsrc.org/gnupg/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" | tar -xj
+    (curl -sSL "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" -o gcrypt.tar.bz2 || \
+     curl -sSL "https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" -o gcrypt.tar.bz2 || \
+     curl -sSL "https://mirrors.dotsrc.org/gnupg/libgcrypt/libgcrypt-$GCRYPT_VER.tar.bz2" -o gcrypt.tar.bz2)
+    tar -xjf gcrypt.tar.bz2
+    rm -f gcrypt.tar.bz2
 fi
 
 # 6. Download zita-resampler
 if [ ! -d "zita-resampler-$ZITA_VER" ]; then
     echo "=== Downloading zita-resampler $ZITA_VER ==="
-    curl -sSL "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-$ZITA_VER.tar.xz" | tar -xJ
+    curl -sSL "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-$ZITA_VER.tar.xz" -o zita.tar.xz
+    tar -xJf zita.tar.xz
+    rm -f zita.tar.xz
 fi
 
 # 7. Clone audiowmark
