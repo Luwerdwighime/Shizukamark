@@ -3,6 +3,13 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion '2.2.0'
+            }
+        }
+    }
 }
 
 rootProject.buildDir = "../build"
