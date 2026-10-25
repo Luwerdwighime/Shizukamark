@@ -3,9 +3,12 @@ name: Build Android
 on:
   push:
     branches: [ main, develop ]
-    tags:
-      - 'v*'
+  tags:
+    - 'v*'
   workflow_dispatch:
+
+env:
+  GRADLE_VERSION: '8.9'
 
 jobs:
   quality:
@@ -24,22 +27,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.27.x'
           cache: true
-
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
 
       - name: Restore native binaries from cache
         uses: actions/cache/restore@v4
@@ -57,6 +55,19 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Configure Android local.properties
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+          VERSION_NAME=$(echo "$VERSION" | cut -d'+' -f1)
+          VERSION_CODE=$(echo "$VERSION" | cut -d'+' -f2)
+          cat <<EOF > android/local.properties
+          sdk.dir=$ANDROID_HOME
+          flutter.sdk=$FLUTTER_ROOT
+          flutter.buildMode=release
+          flutter.versionName=${VERSION_NAME:-1.0.0}
+          flutter.versionCode=${VERSION_CODE:-1}
+          EOF
 
       - name: Decode Keystore
         if: env.HAS_KEYSTORE == 'true'
@@ -77,11 +88,33 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      - name: Build Android APK
-        run: flutter build apk --release
+      - name: Build Android APK with Gradle
+        run: |
+          cd android
+          gradle :app:assembleRelease --stacktrace
 
-      - name: Build Android App Bundle
-        run: flutter build appbundle --release
+      - name: Prepare APK artifact
+        run: |
+          mkdir -p build/app/outputs/flutter-apk
+          if [ -f build/app/outputs/apk/release/app-release.apk ] && [ ! -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            cp build/app/outputs/apk/release/app-release.apk build/app/outputs/flutter-apk/app-release.apk
+          elif [ -f build/app/outputs/apk/release/app-release-unsigned.apk ] && [ ! -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            cp build/app/outputs/apk/release/app-release-unsigned.apk build/app/outputs/flutter-apk/app-release.apk
+          fi
+          ls -la build/app/outputs/flutter-apk/
+
+      - name: Build Android App Bundle with Gradle
+        run: |
+          cd android
+          gradle :app:bundleRelease --stacktrace
+
+      - name: Prepare AAB artifact
+        run: |
+          mkdir -p build/app/outputs/bundle/release
+          if [ ! -f build/app/outputs/bundle/release/app-release.aab ]; then
+            find build/app/outputs -name "*.aab" -exec cp {} build/app/outputs/bundle/release/app-release.aab \;
+          fi
+          ls -la build/app/outputs/bundle/release/
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
