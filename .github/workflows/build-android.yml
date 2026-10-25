@@ -3,8 +3,8 @@ name: Build Android
 on:
   push:
     branches: [ main, develop ]
-  tags:
-    - 'v*'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 env:
