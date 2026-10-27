@@ -91,7 +91,7 @@ jobs:
       - name: Build Android APK with Gradle
         run: |
           cd android
-          gradle :app:assembleRelease --stacktrace
+          gradle :app:assembleRelease --stacktrace --info
 
       - name: Prepare APK artifact
         run: |
