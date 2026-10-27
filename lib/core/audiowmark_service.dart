@@ -81,12 +81,11 @@ class AudiowmarkService {
     }
   }
 
-  /// Generates a new key: ["gen-key", "--key", "keys/$fileName", "--name", name]
+  /// Generates a new key: ["gen-key", "keys/$fileName", "--name", name]
   Future<Result<void>> genKey(
       {required String fileName, required String name}) async {
     final List<String> args = [
       'gen-key',
-      '--key',
       'keys/$fileName',
       '--name',
       name,
