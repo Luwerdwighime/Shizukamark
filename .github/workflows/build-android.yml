@@ -2,7 +2,7 @@ name: Build Android
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, AloEnZo ]
     tags:
       - 'v*'
   workflow_dispatch:
