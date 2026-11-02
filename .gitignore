@@ -1,6 +1,7 @@
 # Miscellaneous
 *.class
 *.lock
+!pubspec.lock
 *.log
 *.pyc
 *.swp
@@ -8,6 +9,7 @@
 .history
 /agy*
 /secrets/
+/todo/
 
 
 # Flutter repo-specific
