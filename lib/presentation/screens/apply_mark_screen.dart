@@ -97,7 +97,7 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
       currentOperation: l10n.progressPreparing,
     );
 
-    late StateSetter setDialogState;
+    StateSetter? setDialogState;
 
     showDialog(
       context: context,
@@ -119,19 +119,24 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
     );
 
     // 4. Execute process
-    final Result<String> result = await _controller.execute(
-      secretMessage: secretMessage,
-      inputAudioPath: _inputAudioPath!,
-      selectedKey: _selectedKey!,
-      codec: _selectedCodec,
-      customSavePath: customPath,
-      onProgress: (newState) {
-        currentState = newState;
-        if (mounted) {
-          setDialogState(() {});
-        }
-      },
-    );
+    Result<String> result;
+    try {
+      result = await _controller.execute(
+        secretMessage: secretMessage,
+        inputAudioPath: _inputAudioPath!,
+        selectedKey: _selectedKey!,
+        codec: _selectedCodec,
+        customSavePath: customPath,
+        onProgress: (newState) {
+          currentState = newState;
+          if (mounted) {
+            setDialogState?.call(() {});
+          }
+        },
+      );
+    } catch (e) {
+      result = failure('Ошибка выполнения: $e');
+    }
 
     // Close progress dialog if still open
     if (mounted && Navigator.of(context).canPop()) {

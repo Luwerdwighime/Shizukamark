@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_new/ffmpeg_session.dart';
 import 'package:ffmpeg_kit_flutter_new/ffprobe_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import '../domain/models/audio_codec.dart';
@@ -39,7 +41,7 @@ class FFmpegAudioProcessor implements AudioProcessor {
 
     // Inspect audio properties via FFprobe
     try {
-      final probeSession = await FFprobeKit.getMediaInformation(inPath);
+      final probeSession = await FFprobeKit.getMediaInformation(inPath, 5000);
       final mediaInfo = probeSession.getMediaInformation();
       if (mediaInfo != null) {
         // Check duration >= 5 seconds
@@ -69,12 +71,30 @@ class FFmpegAudioProcessor implements AudioProcessor {
     }
 
     // Transcode to WAV 16-bit PCM, preserving sample rate and channels
-    final String cmd = '-y -i "$inPath" -c:a pcm_s16le "$outPath"';
-    final session = await FFmpegKit.executeAsync(cmd);
+    final List<String> args = [
+      '-y',
+      '-i',
+      inPath,
+      '-c:a',
+      'pcm_s16le',
+      outPath,
+    ];
+
+    final Completer<FFmpegSession> completer = Completer<FFmpegSession>();
+    final session = await FFmpegKit.executeWithArgumentsAsync(
+      args,
+      (completedSession) {
+        if (!completer.isCompleted) {
+          completer.complete(completedSession);
+        }
+      },
+    );
     _activeSessionId = session.getSessionId();
 
-    final returnCode = await session.getReturnCode();
+    final FFmpegSession completedSession = await completer.future;
     _activeSessionId = null;
+
+    final returnCode = await completedSession.getReturnCode();
 
     if (ReturnCode.isSuccess(returnCode)) {
       final File outFile = File(outPath);
@@ -85,7 +105,7 @@ class FFmpegAudioProcessor implements AudioProcessor {
     } else if (ReturnCode.isCancel(returnCode)) {
       return failure('Декодирование аудио отменено пользователем');
     } else {
-      final failLog = await session.getFailStackTrace();
+      final failLog = await completedSession.getFailStackTrace();
       return failure(
           'Ошибка декодирования: ${failLog ?? "Не удалось раскодировать аудио"}');
     }
@@ -103,27 +123,45 @@ class FFmpegAudioProcessor implements AudioProcessor {
       return failure('Промежуточный файл $inPath не найден');
     }
 
-    // Prepare FFmpeg command with target codec options
-    final StringBuffer cmdBuffer = StringBuffer('-y -i "$inPath"');
+    final List<String> args = [
+      '-y',
+      '-i',
+      inPath,
+    ];
 
     // If original source audio is provided, map its metadata and cover art
     if (origSourcePath != null && await File(origSourcePath).exists()) {
-      cmdBuffer.write(' -i "$origSourcePath" -map 0:a -map_metadata 1');
+      args.addAll([
+        '-i',
+        origSourcePath,
+        '-map',
+        '0:a',
+        '-map_metadata',
+        '1',
+      ]);
       if (codec != AudioCodec.wav && codec != AudioCodec.opus) {
-        cmdBuffer.write(' -map 1:v? -c:v copy');
+        args.addAll(['-map', '1:v?', '-c:v', 'copy']);
       }
     }
 
-    for (final String arg in codec.ffmpegArgs) {
-      cmdBuffer.write(' $arg');
-    }
-    cmdBuffer.write(' "$outPath"');
+    args.addAll(codec.ffmpegArgs);
+    args.add(outPath);
 
-    final session = await FFmpegKit.executeAsync(cmdBuffer.toString());
+    final Completer<FFmpegSession> completer = Completer<FFmpegSession>();
+    final session = await FFmpegKit.executeWithArgumentsAsync(
+      args,
+      (completedSession) {
+        if (!completer.isCompleted) {
+          completer.complete(completedSession);
+        }
+      },
+    );
     _activeSessionId = session.getSessionId();
 
-    final returnCode = await session.getReturnCode();
+    final FFmpegSession completedSession = await completer.future;
     _activeSessionId = null;
+
+    final returnCode = await completedSession.getReturnCode();
 
     if (ReturnCode.isSuccess(returnCode)) {
       final File outFile = File(outPath);
@@ -134,7 +172,7 @@ class FFmpegAudioProcessor implements AudioProcessor {
     } else if (ReturnCode.isCancel(returnCode)) {
       return failure('Кодирование аудио отменено пользователем');
     } else {
-      final failLog = await session.getFailStackTrace();
+      final failLog = await completedSession.getFailStackTrace();
       return failure(
           'Ошибка сжатия кодеком: ${failLog ?? "Не удалось закодировать аудио"}');
     }
