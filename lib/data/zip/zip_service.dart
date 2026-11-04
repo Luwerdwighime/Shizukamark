@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -33,8 +34,8 @@ class ZipService {
     return true;
   }
 
-  /// Exports keys and messages.sqlite to a ZIP archive at destinationPath
-  Future<Result<void>> zipOut(String destinationPath) async {
+  /// Creates in-memory ZIP archive bytes containing keys and messages.sqlite
+  Future<Result<Uint8List>> createZipBytes() async {
     try {
       final Archive archive = Archive();
       final String docs = await PathConstants.getDocsDir();
@@ -63,13 +64,26 @@ class ZipService {
         }
       }
 
-      // 3. Encode and write ZIP
+      // 3. Encode ZIP
       final ZipEncoder encoder = ZipEncoder();
       final List<int> zipBytes = encoder.encode(archive);
 
+      return success(Uint8List.fromList(zipBytes));
+    } catch (e) {
+      return failure('Ошибка создания zip-архива: $e');
+    }
+  }
+
+  /// Exports keys and messages.sqlite to a ZIP archive at destinationPath
+  Future<Result<void>> zipOut(String destinationPath) async {
+    final Result<Uint8List> bytesRes = await createZipBytes();
+    if (bytesRes.isError) {
+      return failure(bytesRes.error!);
+    }
+    try {
       final File destFile = File(destinationPath);
       await destFile.parent.create(recursive: true);
-      await destFile.writeAsBytes(zipBytes);
+      await destFile.writeAsBytes(bytesRes.value!);
 
       return success(null);
     } catch (e) {
@@ -193,3 +207,6 @@ Future<Result<void>> zipIn(String sourcePath) => ZipService().zipIn(sourcePath);
 /// Top-level zipOut function per specification call tree
 Future<Result<void>> zipOut(String destinationPath) =>
     ZipService().zipOut(destinationPath);
+
+/// Top-level createZipBytes function
+Future<Result<Uint8List>> createZipBytes() => ZipService().createZipBytes();

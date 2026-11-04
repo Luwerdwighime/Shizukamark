@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,29 +78,44 @@ class KeysScreen extends ConsumerWidget {
   Future<void> _handleExport(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
     try {
+      final ZipService zipService = ZipService();
+      final Result<Uint8List> zipRes = await zipService.createZipBytes();
+
+      if (zipRes.isError) {
+        if (context.mounted) {
+          SnackBarService.showError(
+            context,
+            zipRes.error ?? l10n.errorExportData,
+          );
+        }
+        return;
+      }
+
+      final Uint8List zipBytes = zipRes.value!;
       final String defaultName =
           'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
-      String? outputPath = await FilePicker.platform.saveFile(
+
+      final String? outputPath = await FilePicker.platform.saveFile(
         dialogTitle: l10n.exportDialogTitle,
         fileName: defaultName,
         type: FileType.custom,
         allowedExtensions: ['zip'],
+        bytes: zipBytes,
       );
 
       if (outputPath != null) {
-        if (!outputPath.toLowerCase().endsWith('.zip')) {
-          outputPath = '$outputPath.zip';
+        if (!Platform.isAndroid && !Platform.isIOS) {
+          String finalPath = outputPath;
+          if (!finalPath.toLowerCase().endsWith('.zip')) {
+            finalPath = '$finalPath.zip';
+          }
+          final File destFile = File(finalPath);
+          await destFile.parent.create(recursive: true);
+          await destFile.writeAsBytes(zipBytes);
         }
-        final ZipService zipService = ZipService();
-        final Result<void> exportRes = await zipService.zipOut(outputPath);
 
-        if (exportRes.isSuccess && context.mounted) {
+        if (context.mounted) {
           SnackBarService.showSuccess(context, l10n.exportSuccess);
-        } else if (context.mounted) {
-          SnackBarService.showError(
-            context,
-            exportRes.error ?? l10n.errorExportData,
-          );
         }
       }
     } catch (e) {
