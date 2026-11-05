@@ -37,11 +37,12 @@ class ReadMarkController {
     _isCancelled = false;
 
     if (!await File(inputAudioPath).exists()) {
-      return failure(
-          l10n?.readMarkErrorNoFile ?? 'Выберите помеченное водяным знаком музло');
+      return failure(l10n?.readMarkErrorNoFile ??
+          'Выберите помеченное водяным знаком музло');
     }
 
-    final String titleDecoding = l10n?.progressDecoding ?? 'Декодирование аудио';
+    final String titleDecoding =
+        l10n?.progressDecoding ?? 'Декодирование аудио';
     final String titleReading =
         l10n?.progressReadingWatermark ?? 'Чтение водяного знака';
     final String titleDone = l10n?.progressDone ?? 'Завершено';

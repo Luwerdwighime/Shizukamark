@@ -32,9 +32,8 @@ class KeyPickerField extends StatelessWidget {
         selectedKey != null && selectedKey!.keyPath.isNotEmpty;
     final String fileName =
         hasSelection ? selectedKey!.keyPath.split('/').last : '';
-    final String unnamed = l10n != null
-        ? l10n.keysUnnamed(fileName)
-        : '(Unnamed) · $fileName';
+    final String unnamed =
+        l10n != null ? l10n.keysUnnamed(fileName) : '(Unnamed) · $fileName';
     final String displayText = hasSelection
         ? (selectedKey!.name.isNotEmpty ? selectedKey!.name : unnamed)
         : hintText;

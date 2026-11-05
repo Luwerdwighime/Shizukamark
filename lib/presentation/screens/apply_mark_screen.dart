@@ -160,7 +160,8 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
       } else if (errorMessage.contains('Аудио слишком короткое') ||
           errorMessage.contains('Audio too short')) {
         errorMessage = l10n.errorAudioTooShort;
-      } else if (errorMessage.contains('Поддерживается только моно или стерео') ||
+      } else if (errorMessage
+              .contains('Поддерживается только моно или стерео') ||
           errorMessage.contains('Only mono or stereo')) {
         errorMessage = l10n.errorStereoOnly;
       } else if (errorMessage.contains('Выходной файл не был создан') ||

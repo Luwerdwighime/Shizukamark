@@ -42,13 +42,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get applyMarkCreateKey => 'Neuen Schlüssel erstellen';
 
   @override
-  String get applyMarkExportFolder => 'Exportordner: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder =>
+      'Exportordner: Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseMediaStore => 'Systemordner Music/Shizukamark (MediaStore)';
+  String get applyMarkUseMediaStore =>
+      'Systemordner Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseCustomSave => 'Benutzerdefiniertes Speichern (Speicherdialog)';
+  String get applyMarkUseCustomSave =>
+      'Benutzerdefiniertes Speichern (Speicherdialog)';
 
   @override
   String applyMarkCustomFolder(String path) {
@@ -79,7 +82,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get readMarkFileHint => 'Audiodatei mit Wasserzeichen auswählen';
 
   @override
-  String get readMarkImportHint => 'Vergessen Sie nicht, zuvor Daten des Wasserzeichen-Erstellers zu importieren, um es lesen zu können.';
+  String get readMarkImportHint =>
+      'Vergessen Sie nicht, zuvor Daten des Wasserzeichen-Erstellers zu importieren, um es lesen zu können.';
 
   @override
   String get readMarkOutputHint => 'Hier erscheint die geheime Nachricht';
@@ -88,13 +92,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get readMarkPatientCheckbox => 'Geduldiges Lesen verwenden';
 
   @override
-  String get readMarkPatientSubtitle => 'Erkennt geringfügige Geschwindigkeitsänderungen, dauert jedoch länger.';
+  String get readMarkPatientSubtitle =>
+      'Erkennt geringfügige Geschwindigkeitsänderungen, dauert jedoch länger.';
 
   @override
   String get readMarkButton => 'Wasserzeichen lesen';
 
   @override
-  String get readMarkErrorNoFile => 'Wählen Sie eine Audiodatei mit Wasserzeichen aus';
+  String get readMarkErrorNoFile =>
+      'Wählen Sie eine Audiodatei mit Wasserzeichen aus';
 
   @override
   String get readMarkSuccess => 'Wasserzeichen erfolgreich gelesen!';
@@ -143,10 +149,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get createKeyErrorMaxLength => 'Maximal 128 Zeichen';
 
   @override
-  String get createKeyErrorInvalidChars => 'Ungültige Zeichen im Schlüsselnamen';
+  String get createKeyErrorInvalidChars =>
+      'Ungültige Zeichen im Schlüsselnamen';
 
   @override
-  String get createKeyErrorGeneral => 'Geben Sie einen gültigen Schlüsselnamen ein (1–128 Zeichen)';
+  String get createKeyErrorGeneral =>
+      'Geben Sie einen gültigen Schlüsselnamen ein (1–128 Zeichen)';
 
   @override
   String get selectKeyTitle => 'Schlüssel auswählen';
@@ -221,7 +229,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorDecoding => 'Dekodierungsfehler';
 
   @override
-  String get errorApplyingWatermark => 'Fehler beim Anwenden des Wasserzeichens';
+  String get errorApplyingWatermark =>
+      'Fehler beim Anwenden des Wasserzeichens';
 
   @override
   String get errorEncoding => 'Codec-Komprimierungsfehler';
@@ -233,13 +242,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorStegoExtraction => 'Steganographie-Extraktionsfehler';
 
   @override
-  String get errorWatermarkNotFound => 'Wasserzeichen nicht gefunden oder passender Schlüssel fehlt.';
+  String get errorWatermarkNotFound =>
+      'Wasserzeichen nicht gefunden oder passender Schlüssel fehlt.';
 
   @override
-  String get errorNoKeysAvailable => 'Keine Schlüssel in der Bibliothek verfügbar. Erstellen oder importieren Sie zuerst einen Schlüssel.';
+  String get errorNoKeysAvailable =>
+      'Keine Schlüssel in der Bibliothek verfügbar. Erstellen oder importieren Sie zuerst einen Schlüssel.';
 
   @override
-  String get errorNativeLibraryNotFound => 'audiowmark-Bibliothek nicht gefunden';
+  String get errorNativeLibraryNotFound =>
+      'audiowmark-Bibliothek nicht gefunden';
 
   @override
   String get errorOutputFileNotCreated => 'Ausgabedatei wurde nicht erstellt';
@@ -257,10 +269,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorOperationCancelled => 'Vorgang abgebrochen';
 
   @override
-  String get errorAudioTooShort => 'Audio ist zu kurz für ein Wasserzeichen (mindestens 5 Sekunden)';
+  String get errorAudioTooShort =>
+      'Audio ist zu kurz für ein Wasserzeichen (mindestens 5 Sekunden)';
 
   @override
-  String get errorStereoOnly => 'Nur Mono- oder Stereo-Audio unterstützt (bis zu 2 Kanäle)';
+  String get errorStereoOnly =>
+      'Nur Mono- oder Stereo-Audio unterstützt (bis zu 2 Kanäle)';
 
   @override
   String errorAudioNotFound(String path) {
@@ -268,7 +282,8 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get permissionRequired => 'Für den Betrieb der App ist Zugriff auf Audiodateien erforderlich';
+  String get permissionRequired =>
+      'Für den Betrieb der App ist Zugriff auf Audiodateien erforderlich';
 
   @override
   String get menuLanguage => 'Language 🎌';

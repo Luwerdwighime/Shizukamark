@@ -42,13 +42,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get applyMarkCreateKey => 'Créer une nouvelle clé';
 
   @override
-  String get applyMarkExportFolder => 'Dossier d\'exportation: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder =>
+      'Dossier d\'exportation: Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseMediaStore => 'Dossier système Music/Shizukamark (MediaStore)';
+  String get applyMarkUseMediaStore =>
+      'Dossier système Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseCustomSave => 'Enregistrement personnalisé (boîte de dialogue)';
+  String get applyMarkUseCustomSave =>
+      'Enregistrement personnalisé (boîte de dialogue)';
 
   @override
   String applyMarkCustomFolder(String path) {
@@ -79,7 +82,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get readMarkFileHint => 'Sélectionnez l\'audio avec filigrane';
 
   @override
-  String get readMarkImportHint => 'N\'oubliez pas d\'importer au préalable les données du créateur du filigrane pour pouvoir le lire.';
+  String get readMarkImportHint =>
+      'N\'oubliez pas d\'importer au préalable les données du créateur du filigrane pour pouvoir le lire.';
 
   @override
   String get readMarkOutputHint => 'Le message secret apparaîtra ici';
@@ -88,13 +92,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get readMarkPatientCheckbox => 'Utiliser la lecture approfondie';
 
   @override
-  String get readMarkPatientSubtitle => 'Détecte les légers changements de vitesse mais prend plus de temps.';
+  String get readMarkPatientSubtitle =>
+      'Détecte les légers changements de vitesse mais prend plus de temps.';
 
   @override
   String get readMarkButton => 'Lire le filigrane';
 
   @override
-  String get readMarkErrorNoFile => 'Sélectionnez un fichier audio avec filigrane';
+  String get readMarkErrorNoFile =>
+      'Sélectionnez un fichier audio avec filigrane';
 
   @override
   String get readMarkSuccess => 'Filigrane lu avec succès !';
@@ -143,10 +149,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get createKeyErrorMaxLength => 'Maximum 128 caractères';
 
   @override
-  String get createKeyErrorInvalidChars => 'Caractères non valides dans le nom de la clé';
+  String get createKeyErrorInvalidChars =>
+      'Caractères non valides dans le nom de la clé';
 
   @override
-  String get createKeyErrorGeneral => 'Entrez un nom de clé valide (1–128 caractères)';
+  String get createKeyErrorGeneral =>
+      'Entrez un nom de clé valide (1–128 caractères)';
 
   @override
   String get selectKeyTitle => 'Sélectionnez une clé';
@@ -221,7 +229,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get errorDecoding => 'Erreur de décodage';
 
   @override
-  String get errorApplyingWatermark => 'Erreur lors de l\'application du filigrane';
+  String get errorApplyingWatermark =>
+      'Erreur lors de l\'application du filigrane';
 
   @override
   String get errorEncoding => 'Erreur de compression du codec';
@@ -233,16 +242,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get errorStegoExtraction => 'Erreur d\'extraction stéganographique';
 
   @override
-  String get errorWatermarkNotFound => 'Filigrane introuvable ou clé manquante.';
+  String get errorWatermarkNotFound =>
+      'Filigrane introuvable ou clé manquante.';
 
   @override
-  String get errorNoKeysAvailable => 'Aucune clé disponible dans la bibliothèque. Créez ou importez d\'abord une clé.';
+  String get errorNoKeysAvailable =>
+      'Aucune clé disponible dans la bibliothèque. Créez ou importez d\'abord une clé.';
 
   @override
-  String get errorNativeLibraryNotFound => 'Bibliothèque audiowmark introuvable';
+  String get errorNativeLibraryNotFound =>
+      'Bibliothèque audiowmark introuvable';
 
   @override
-  String get errorOutputFileNotCreated => 'Le fichier de sortie n\'a pas été créé';
+  String get errorOutputFileNotCreated =>
+      'Le fichier de sortie n\'a pas été créé';
 
   @override
   String get errorDeleteKey => 'Erreur de suppression de la clé';
@@ -257,10 +270,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get errorOperationCancelled => 'Opération annulée';
 
   @override
-  String get errorAudioTooShort => 'Audio trop court pour le filigrane (minimum 5 secondes)';
+  String get errorAudioTooShort =>
+      'Audio trop court pour le filigrane (minimum 5 secondes)';
 
   @override
-  String get errorStereoOnly => 'Seul l\'audio mono ou stéréo est pris en charge (jusqu\'à 2 canaux)';
+  String get errorStereoOnly =>
+      'Seul l\'audio mono ou stéréo est pris en charge (jusqu\'à 2 canaux)';
 
   @override
   String errorAudioNotFound(String path) {
@@ -268,9 +283,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get permissionRequired => 'L\'accès aux fichiers audio est requis pour le fonctionnement de l\'application';
+  String get permissionRequired =>
+      'L\'accès aux fichiers audio est requis pour le fonctionnement de l\'application';
 
   @override
   String get menuLanguage => 'Language 🎌';
-
 }

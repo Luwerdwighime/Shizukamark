@@ -42,10 +42,12 @@ class AppLocalizationsUk extends AppLocalizations {
   String get applyMarkCreateKey => 'Створити новий ключ';
 
   @override
-  String get applyMarkExportFolder => 'Папка експорту: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder =>
+      'Папка експорту: Music/Shizukamark (MediaStore)';
 
   @override
-  String get applyMarkUseMediaStore => 'Системна папка Music/Shizukamark (MediaStore)';
+  String get applyMarkUseMediaStore =>
+      'Системна папка Music/Shizukamark (MediaStore)';
 
   @override
   String get applyMarkUseCustomSave => 'Власне збереження (діалог збереження)';
@@ -79,7 +81,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get readMarkFileHint => 'Виберіть аудіо з водяним знаком';
 
   @override
-  String get readMarkImportHint => 'Не забудьте заздалегідь імпортувати дані від творця водяного знака, щоб мати змогу прочитати його.';
+  String get readMarkImportHint =>
+      'Не забудьте заздалегідь імпортувати дані від творця водяного знака, щоб мати змогу прочитати його.';
 
   @override
   String get readMarkOutputHint => 'Тут з\'явиться секретне повідомлення';
@@ -88,7 +91,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get readMarkPatientCheckbox => 'Використовувати ретельне читання';
 
   @override
-  String get readMarkPatientSubtitle => 'Виявляє незначні зміни швидкості, але потребує більше часу.';
+  String get readMarkPatientSubtitle =>
+      'Виявляє незначні зміни швидкості, але потребує більше часу.';
 
   @override
   String get readMarkButton => 'Прочитати водяний знак';
@@ -146,7 +150,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get createKeyErrorInvalidChars => 'Неприпустимі символи в імені ключа';
 
   @override
-  String get createKeyErrorGeneral => 'Введіть коректне ім\'я ключа (1–128 символів)';
+  String get createKeyErrorGeneral =>
+      'Введіть коректне ім\'я ключа (1–128 символів)';
 
   @override
   String get selectKeyTitle => 'Виберіть ключ';
@@ -233,10 +238,12 @@ class AppLocalizationsUk extends AppLocalizations {
   String get errorStegoExtraction => 'Помилка вилучення стего';
 
   @override
-  String get errorWatermarkNotFound => 'Водяний знак не знайдено, або у вас немає для нього ключа.';
+  String get errorWatermarkNotFound =>
+      'Водяний знак не знайдено, або у вас немає для нього ключа.';
 
   @override
-  String get errorNoKeysAvailable => 'У бібліотеці немає ключів. Спочатку створіть або імпортуйте ключ.';
+  String get errorNoKeysAvailable =>
+      'У бібліотеці немає ключів. Спочатку створіть або імпортуйте ключ.';
 
   @override
   String get errorNativeLibraryNotFound => 'Бібліотеку audiowmark не знайдено';
@@ -257,10 +264,12 @@ class AppLocalizationsUk extends AppLocalizations {
   String get errorOperationCancelled => 'Операцію скасовано';
 
   @override
-  String get errorAudioTooShort => 'Аудіо занадто коротке для водяного знака (мінімум 5 секунд)';
+  String get errorAudioTooShort =>
+      'Аудіо занадто коротке для водяного знака (мінімум 5 секунд)';
 
   @override
-  String get errorStereoOnly => 'Підтримується лише моно або стерео аудіо (до 2 каналів)';
+  String get errorStereoOnly =>
+      'Підтримується лише моно або стерео аудіо (до 2 каналів)';
 
   @override
   String errorAudioNotFound(String path) {
@@ -268,7 +277,8 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get permissionRequired => 'Для роботи програми необхідний доступ до аудіофайлів';
+  String get permissionRequired =>
+      'Для роботи програми необхідний доступ до аудіофайлів';
 
   @override
   String get menuLanguage => 'Language 🎌';

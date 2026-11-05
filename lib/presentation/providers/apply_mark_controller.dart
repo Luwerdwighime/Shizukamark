@@ -59,7 +59,8 @@ class ApplyMarkController {
 
     // 1. Validations
     if (!DatabaseHelper.isValidMessage(secretMessage)) {
-      return failure(l10n?.applyMarkErrorNoMessage ?? 'Введите секретное сообщение');
+      return failure(
+          l10n?.applyMarkErrorNoMessage ?? 'Введите секретное сообщение');
     }
     if (!await File(inputAudioPath).exists()) {
       return failure(l10n?.applyMarkErrorNoFile ?? 'Выберите музло');
@@ -70,8 +71,10 @@ class ApplyMarkController {
 
     final String hash32 = computeMessageHash(secretMessage);
 
-    final String titleDecoding = l10n?.progressDecoding ?? 'Декодирование аудио';
-    final String titleApplying = l10n?.progressApplyingWatermark ?? 'Наложение водяного знака';
+    final String titleDecoding =
+        l10n?.progressDecoding ?? 'Декодирование аудио';
+    final String titleApplying =
+        l10n?.progressApplyingWatermark ?? 'Наложение водяного знака';
     final String titleEncoding = l10n?.progressEncoding ?? 'Кодирование аудио';
 
     // Initial progress state
@@ -128,7 +131,8 @@ class ApplyMarkController {
         keyPath: selectedKey.keyPath,
       );
       if (stegoRes.isError) {
-        final prefix = l10n?.errorApplyingWatermark ?? 'Ошибка наложения водяного знака';
+        final prefix =
+            l10n?.errorApplyingWatermark ?? 'Ошибка наложения водяного знака';
         return failure('$prefix: ${stegoRes.error}');
       }
 
