@@ -199,6 +199,18 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
                 maxLines: null,
                 decoration: InputDecoration(
                   hintText: l10n.applyMarkSecretHint,
+                  counter: ValueListenableBuilder<TextEditingValue>(
+                    valueListenable: _msgController,
+                    builder: (context, value, _) {
+                      return Text(
+                        l10n.applyMarkCharCount(value.text.characters.length),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF667085),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "電子透かしを埋め込む",
   "applyMarkSecretHint": "秘密のメッセージを入力",
+  "applyMarkCharCount": "文字数: {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "音声ファイルを選択",
   "applyMarkKeyHint": "キーを選択",
   "applyMarkOr": "または",

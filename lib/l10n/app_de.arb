@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "Wasserzeichen anbringen",
   "applyMarkSecretHint": "Geheime Nachricht eingeben",
+  "applyMarkCharCount": "Zeichen: {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "Audiodatei auswählen",
   "applyMarkKeyHint": "Schlüssel auswählen",
   "applyMarkOr": "oder",

@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "Нанести знак",
   "applyMarkSecretHint": "Введіть секретне повідомлення",
+  "applyMarkCharCount": "Символів: {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "Виберіть аудіофайл",
   "applyMarkKeyHint": "Виберіть ключ",
   "applyMarkOr": "або",

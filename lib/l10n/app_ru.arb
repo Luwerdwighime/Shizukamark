@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "Нанести знак",
   "applyMarkSecretHint": "Введите секретное сообщение",
+  "applyMarkCharCount": "Символов: {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "Выберите музло",
   "applyMarkKeyHint": "Выберите ключ",
   "applyMarkOr": "или",

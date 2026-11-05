@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "Appliquer la marque",
   "applyMarkSecretHint": "Entrez le message secret",
+  "applyMarkCharCount": "Caractères : {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "Sélectionnez un fichier audio",
   "applyMarkKeyHint": "Sélectionnez une clé",
   "applyMarkOr": "ou",

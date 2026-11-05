@@ -51,6 +51,7 @@ abstract class AppLocalizations {
   String get homeExport;
   String get applyMarkTitle;
   String get applyMarkSecretHint;
+  String applyMarkCharCount(int count);
   String get applyMarkFileHint;
   String get applyMarkKeyHint;
   String get applyMarkOr;

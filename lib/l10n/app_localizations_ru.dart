@@ -30,6 +30,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get applyMarkSecretHint => 'Введите секретное сообщение';
 
   @override
+  String applyMarkCharCount(int count) {
+    return 'Символов: $count';
+  }
+
+  @override
   String get applyMarkFileHint => 'Выберите музло';
 
   @override

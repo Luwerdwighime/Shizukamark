@@ -30,6 +30,11 @@ class AppLocalizationsUk extends AppLocalizations {
   String get applyMarkSecretHint => 'Введіть секретне повідомлення';
 
   @override
+  String applyMarkCharCount(int count) {
+    return 'Символів: $count';
+  }
+
+  @override
   String get applyMarkFileHint => 'Виберіть аудіофайл';
 
   @override

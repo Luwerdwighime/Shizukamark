@@ -30,6 +30,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get applyMarkSecretHint => '秘密のメッセージを入力';
 
   @override
+  String applyMarkCharCount(int count) {
+    return '文字数: $count';
+  }
+
+  @override
   String get applyMarkFileHint => '音声ファイルを選択';
 
   @override

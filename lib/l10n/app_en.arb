@@ -11,6 +11,12 @@
 
   "applyMarkTitle": "Apply mark",
   "applyMarkSecretHint": "Enter secret message",
+  "applyMarkCharCount": "Characters: {count}",
+  "@applyMarkCharCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "applyMarkFileHint": "Select audio file",
   "applyMarkKeyHint": "Select key",
   "applyMarkOr": "or",
