@@ -72,21 +72,43 @@ class KeysStorage {
     return (name: name, hexKey: hexKey);
   }
 
-  /// Lists all keys sorted alphabetically, with unnamed keys at the end
-  Future<Result<List<KeyInfo>>> listKeys() async {
+  /// Returns all parsed keys with their name, hexKey, and fileName from the keys directory
+  Future<List<({String name, String? hexKey, String fileName})>>
+      getAllParsedKeys() async {
+    final List<({String name, String? hexKey, String fileName})> result = [];
     try {
       final Directory dir = await getKeysDirectory();
       final List<FileSystemEntity> entities = await dir.list().toList();
-      final List<KeyInfo> result = [];
-
       for (final FileSystemEntity entity in entities) {
         if (entity is File && entity.path.endsWith('.key')) {
           final String content = await entity.readAsString();
           final parsed = parseKeyFile(content);
-          final String relPath = 'keys/${p.basename(entity.path)}';
-          result.add(KeyInfo(name: parsed.name, keyPath: relPath));
+          result.add((
+            name: parsed.name,
+            hexKey: parsed.hexKey,
+            fileName: p.basename(entity.path),
+          ));
         }
       }
+    } catch (_) {}
+    return result;
+  }
+
+  /// Checks if a key with matching name already exists in the keys directory
+  Future<bool> hasKeyWithName(String name) async {
+    final String trimmedName = name.trim();
+    if (trimmedName.isEmpty) return false;
+    final keys = await getAllParsedKeys();
+    return keys.any((k) => k.name == trimmedName);
+  }
+
+  /// Lists all keys sorted alphabetically, with unnamed keys at the end
+  Future<Result<List<KeyInfo>>> listKeys() async {
+    try {
+      final keys = await getAllParsedKeys();
+      final List<KeyInfo> result = keys.map((k) {
+        return KeyInfo(name: k.name, keyPath: 'keys/${k.fileName}');
+      }).toList();
 
       // Sort alphabetically, empty/unnamed names placed at the end
       result.sort((a, b) {
@@ -109,6 +131,10 @@ class KeysStorage {
     final String trimmedName = name.trim();
     if (trimmedName.isEmpty || trimmedName.length > 128) {
       return failure('Имя ключа должно содержать от 1 до 128 символов');
+    }
+
+    if (await hasKeyWithName(trimmedName)) {
+      return failure('Ключ с таким именем уже существует');
     }
 
     try {
@@ -147,21 +173,10 @@ class KeysStorage {
 
   /// Checks if a key with matching hex value already exists in the keys directory
   Future<bool> hasKeyWithHex(String hexKey) async {
-    try {
-      final Directory dir = await getKeysDirectory();
-      final List<FileSystemEntity> entities = await dir.list().toList();
-      for (final FileSystemEntity entity in entities) {
-        if (entity is File && entity.path.endsWith('.key')) {
-          final String content = await entity.readAsString();
-          final parsed = parseKeyFile(content);
-          if (parsed.hexKey != null &&
-              parsed.hexKey!.toLowerCase() == hexKey.toLowerCase()) {
-            return true;
-          }
-        }
-      }
-    } catch (_) {}
-    return false;
+    final keys = await getAllParsedKeys();
+    final String normHex = hexKey.toLowerCase();
+    return keys.any(
+        (k) => k.hexKey != null && k.hexKey!.toLowerCase() == normHex);
   }
 }
 

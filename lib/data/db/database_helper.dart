@@ -49,10 +49,43 @@ class DatabaseHelper {
             ts INTEGER NOT NULL
           )
         ''');
+        await db.execute(
+            'CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_hash ON messages(hash)');
+      },
+      onOpen: (Database db) async {
+        try {
+          // Remove any duplicate hash rows preserving the first row
+          await db.execute('''
+            DELETE FROM messages WHERE id NOT IN (
+              SELECT MIN(id) FROM messages GROUP BY LOWER(hash)
+            )
+          ''');
+          await db.execute(
+              'CREATE UNIQUE INDEX IF NOT EXISTS idx_messages_hash ON messages(hash)');
+        } catch (_) {}
       },
     );
     _db = db;
     return db;
+  }
+
+  /// Checks if a message with matching hash already exists in the database
+  Future<bool> hasMessageWithHash(String hash) async {
+    final String lowerHash = hash.toLowerCase();
+    if (!isValidHash(lowerHash)) return false;
+    try {
+      final Database db = await getDatabase();
+      final List<Map<String, dynamic>> rows = await db.query(
+        'messages',
+        columns: ['id'],
+        where: 'LOWER(hash) = ?',
+        whereArgs: [lowerHash],
+        limit: 1,
+      );
+      return rows.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
   }
 
   /// Inserts a message with validation and hash deduplication (INSERT OR IGNORE)
@@ -71,6 +104,11 @@ class DatabaseHelper {
     }
 
     try {
+      if (await hasMessageWithHash(lowerHash)) {
+        // Hash already exists in database -> do not duplicate row in sqlite
+        return success(0);
+      }
+
       final Database db = await getDatabase();
       final int rowId = await db.insert(
         'messages',

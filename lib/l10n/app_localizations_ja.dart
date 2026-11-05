@@ -156,6 +156,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get createKeyErrorGeneral => '有効なキー名を入力してください (1〜128文字)';
 
   @override
+  String get createKeyErrorDuplicateName => 'この名前のキーは既に存在します';
+
+  @override
   String get selectKeyTitle => 'キーを選択';
 
   @override

@@ -50,5 +50,17 @@ key 11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff
       expect(parsed.hexKey,
           '11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff');
     });
+
+    test('parses .key file with timestamped name', () {
+      const String content = '''
+name "MyKey_14:30:15/05.11.26"
+key 11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff
+''';
+
+      final parsed = KeysStorage.parseKeyFile(content);
+      expect(parsed.name, 'MyKey_14:30:15/05.11.26');
+      expect(parsed.hexKey,
+          '11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff');
+    });
   });
 }

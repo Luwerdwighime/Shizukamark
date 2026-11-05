@@ -159,6 +159,9 @@ class AppLocalizationsUk extends AppLocalizations {
       'Введіть коректне ім\'я ключа (1–128 символів)';
 
   @override
+  String get createKeyErrorDuplicateName => 'Ключ з такою назвою вже існує';
+
+  @override
   String get selectKeyTitle => 'Виберіть ключ';
 
   @override

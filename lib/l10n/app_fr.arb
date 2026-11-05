@@ -77,6 +77,7 @@
   "createKeyErrorMaxLength": "Maximum 128 caractères",
   "createKeyErrorInvalidChars": "Caractères non valides dans le nom de la clé",
   "createKeyErrorGeneral": "Entrez un nom de clé valide (1–128 caractères)",
+  "createKeyErrorDuplicateName": "Une clé avec ce nom existe déjà",
 
   "selectKeyTitle": "Sélectionnez une clé",
 

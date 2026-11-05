@@ -162,6 +162,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Entrez un nom de clé valide (1–128 caractères)';
 
   @override
+  String get createKeyErrorDuplicateName => 'Une clé avec ce nom existe déjà';
+
+  @override
   String get selectKeyTitle => 'Sélectionnez une clé';
 
   @override

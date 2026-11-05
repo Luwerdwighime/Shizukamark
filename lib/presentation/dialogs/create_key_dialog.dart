@@ -31,14 +31,24 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
     return true;
   }
 
+  bool _isDuplicate(String text) {
+    final String trimmed = text.trim();
+    if (trimmed.isEmpty) return false;
+    final keys = ref.read(keysProvider).value ?? [];
+    return keys.any((k) => k.name == trimmed);
+  }
+
   void _onTextChanged(String text, AppLocalizations l10n) {
     setState(() {
-      if (text.trim().isEmpty) {
+      final String trimmed = text.trim();
+      if (trimmed.isEmpty) {
         _errorText = l10n.createKeyErrorEmpty;
-      } else if (text.trim().length > 128) {
+      } else if (trimmed.length > 128) {
         _errorText = l10n.createKeyErrorMaxLength;
       } else if (!_isValid(text)) {
         _errorText = l10n.createKeyErrorInvalidChars;
+      } else if (_isDuplicate(text)) {
+        _errorText = l10n.createKeyErrorDuplicateName;
       } else {
         _errorText = null;
       }
@@ -47,6 +57,12 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
 
   Future<void> _submit(AppLocalizations l10n) async {
     final String name = _controller.text.trim();
+    if (_isDuplicate(name)) {
+      setState(() {
+        _errorText = l10n.createKeyErrorDuplicateName;
+      });
+      return;
+    }
     if (!_isValid(name)) {
       setState(() {
         _errorText = l10n.createKeyErrorGeneral;
@@ -75,7 +91,10 @@ class _CreateKeyDialogState extends ConsumerState<CreateKeyDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final bool canSubmit = !_isLoading && _isValid(_controller.text);
+    final keys = ref.watch(keysProvider).value ?? [];
+    final bool isDuplicate = keys.any((k) => k.name == _controller.text.trim());
+    final bool canSubmit =
+        !_isLoading && _isValid(_controller.text) && !isDuplicate;
 
     return AlertDialog(
       title: Text(l10n.createKeyTitle),

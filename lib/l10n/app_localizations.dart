@@ -89,6 +89,7 @@ abstract class AppLocalizations {
   String get createKeyErrorMaxLength;
   String get createKeyErrorInvalidChars;
   String get createKeyErrorGeneral;
+  String get createKeyErrorDuplicateName;
   String get selectKeyTitle;
   String get codecDialogTitle;
   String get codecLossyHeader;

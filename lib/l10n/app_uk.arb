@@ -77,6 +77,7 @@
   "createKeyErrorMaxLength": "Максимум 128 символів",
   "createKeyErrorInvalidChars": "Неприпустимі символи в імені ключа",
   "createKeyErrorGeneral": "Введіть коректне ім'я ключа (1–128 символів)",
+  "createKeyErrorDuplicateName": "Ключ з такою назвою вже існує",
 
   "selectKeyTitle": "Виберіть ключ",
 

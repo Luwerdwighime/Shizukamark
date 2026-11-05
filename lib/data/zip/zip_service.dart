@@ -34,6 +34,27 @@ class ZipService {
     return true;
   }
 
+  /// Formats DateTime as 'ЧЧ:ММ:СС/ДД.ММ.ГГ' (e.g. 14:30:15/05.11.26)
+  static String formatTimestamp(DateTime dt) {
+    final String hh = dt.hour.toString().padLeft(2, '0');
+    final String mm = dt.minute.toString().padLeft(2, '0');
+    final String ss = dt.second.toString().padLeft(2, '0');
+    final String dd = dt.day.toString().padLeft(2, '0');
+    final String mo = dt.month.toString().padLeft(2, '0');
+    final String yy = (dt.year % 100).toString().padLeft(2, '0');
+    return '$hh:$mm:$ss/$dd.$mo.$yy';
+  }
+
+  /// Updates or inserts the key name in the .key file content
+  static String updateKeyNameInContent(String content, String newName) {
+    final RegExp nameRegex = RegExp(r'^name\s+.*$', multiLine: true);
+    if (nameRegex.hasMatch(content)) {
+      return content.replaceFirst(nameRegex, 'name "$newName"');
+    } else {
+      return 'name "$newName"\n$content';
+    }
+  }
+
   /// Creates in-memory ZIP archive bytes containing keys and messages.sqlite
   Future<Result<Uint8List>> createZipBytes() async {
     try {
@@ -150,7 +171,7 @@ class ZipService {
         return failure('zip архив с неправильным содержимым');
       }
 
-      // 1. Import database records from temporary messages.sqlite
+      // 1. Import database records from temporary messages.sqlite with hash deduplication
       final Database tempDb = await openReadOnlyDatabase(tempDbFile.path);
       try {
         final List<Map<String, dynamic>> rows = await tempDb.query('messages');
@@ -159,33 +180,88 @@ class ZipService {
           final String? hash = row['hash'] as String?;
           final int? ts = row['ts'] as int?;
           if (msg != null && hash != null && ts != null) {
-            await _databaseHelper.insertMessage(msg: msg, hash: hash, ts: ts);
+            final String lowerHash = hash.toLowerCase();
+            if (await _databaseHelper.hasMessageWithHash(lowerHash)) {
+              // Same hash already exists in sqlite -> skip to avoid inflating database
+              continue;
+            }
+            await _databaseHelper.insertMessage(
+                msg: msg, hash: lowerHash, ts: ts);
           }
         }
       } finally {
         await tempDb.close();
       }
 
-      // 2. Import keys with deduplication by hex content
+      // 2. Import keys with name/hash deduplication and timestamp renaming for collisions
       final Directory localKeysDir = await _keysStorage.getKeysDirectory();
-      for (final keyData in candidateKeys) {
-        final String content = utf8.decode(keyData.bytes, allowMalformed: true);
-        final parsed = KeysStorage.parseKeyFile(content);
+      final List<({String name, String? hexKey, String fileName})>
+          existingKeys = await _keysStorage.getAllParsedKeys();
 
-        if (parsed.hexKey != null && parsed.hexKey!.isNotEmpty) {
-          final bool alreadyExists =
-              await _keysStorage.hasKeyWithHex(parsed.hexKey!);
-          if (alreadyExists) {
+      for (final keyData in candidateKeys) {
+        String content = utf8.decode(keyData.bytes, allowMalformed: true);
+        final parsed = KeysStorage.parseKeyFile(content);
+        final String candidateName = parsed.name;
+        final String? candidateHex = parsed.hexKey;
+
+        // Check if this key is already present in the library:
+        // Identical both by name (or renamed oldName_timestamp) and hash
+        if (candidateHex != null && candidateHex.isNotEmpty) {
+          final String normCandHex = candidateHex.toLowerCase();
+          final bool isAlreadyImported = existingKeys.any((existing) {
+            if (existing.hexKey == null ||
+                existing.hexKey!.toLowerCase() != normCandHex) {
+              return false;
+            }
+            if (existing.name == candidateName) return true;
+            if (candidateName.isNotEmpty &&
+                existing.name.startsWith('${candidateName}_')) {
+              return true;
+            }
+            return false;
+          });
+
+          if (isAlreadyImported) {
             // Key is already present in library -> skip creating duplicate
             continue;
           }
         }
 
-        // New key -> generate unique 8-hex filename and save
+        // Key is not yet present. Check if candidate name collides with an existing key's name
+        String targetName = candidateName;
+        if (candidateName.isNotEmpty) {
+          final bool hasNameCollision =
+              existingKeys.any((k) => k.name == candidateName);
+          if (hasNameCollision) {
+            // Same name but different hash: rename with timestamp
+            final String ts = formatTimestamp(DateTime.now());
+            targetName = '${candidateName}_$ts';
+
+            // Ensure uniqueness in the rare case of collision
+            String uniqueTargetName = targetName;
+            int counter = 1;
+            while (existingKeys.any((k) => k.name == uniqueTargetName)) {
+              uniqueTargetName = '${targetName}_$counter';
+              counter++;
+            }
+            targetName = uniqueTargetName;
+
+            content = updateKeyNameInContent(content, targetName);
+          }
+        }
+
+        // Generate unique 8-hex filename and save
         final String newFileName =
             await _keysStorage.generateUniqueKeyFileName();
         final File newKeyFile = File(p.join(localKeysDir.path, newFileName));
-        await newKeyFile.writeAsBytes(keyData.bytes);
+        await newKeyFile.writeAsBytes(utf8.encode(content));
+
+        // Track in existingKeys so subsequent keys reflect this addition
+        existingKeys.add((
+          name: targetName,
+          hexKey: candidateHex,
+          fileName: newFileName,
+        ));
       }
 
       return success(null);

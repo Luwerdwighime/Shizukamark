@@ -159,6 +159,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter a valid key name (1–128 characters)';
 
   @override
+  String get createKeyErrorDuplicateName => 'Key with this name already exists';
+
+  @override
   String get selectKeyTitle => 'Select key';
 
   @override
