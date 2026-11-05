@@ -161,7 +161,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Geben Sie einen gültigen Schlüsselnamen ein (1–128 Zeichen)';
 
   @override
-  String get createKeyErrorDuplicateName => 'Ein Schlüssel mit diesem Namen existiert bereits';
+  String get createKeyErrorDuplicateName =>
+      'Ein Schlüssel mit diesem Namen existiert bereits';
 
   @override
   String get selectKeyTitle => 'Schlüssel auswählen';

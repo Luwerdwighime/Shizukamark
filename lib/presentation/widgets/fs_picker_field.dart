@@ -49,9 +49,8 @@ class FsPickerField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool hasSelection = selectedPath != null && selectedPath!.isNotEmpty;
-    final String displayText = hasSelection
-        ? formatBreakablePath(selectedPath!)
-        : hintText;
+    final String displayText =
+        hasSelection ? formatBreakablePath(selectedPath!) : hintText;
 
     return Material(
       color: Colors.transparent,

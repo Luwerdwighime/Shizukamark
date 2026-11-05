@@ -121,7 +121,10 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
             setDialogState?.call(() {});
           }
         },
-        onSave: ({required tempPath, required targetFileName, required bytes}) async {
+        onSave: (
+            {required tempPath,
+            required targetFileName,
+            required bytes}) async {
           // Close progress dialog so the SAF save picker is shown cleanly
           if (progressDialogContext != null &&
               Navigator.of(progressDialogContext!).canPop()) {

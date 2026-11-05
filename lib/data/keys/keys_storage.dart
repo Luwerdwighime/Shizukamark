@@ -175,8 +175,8 @@ class KeysStorage {
   Future<bool> hasKeyWithHex(String hexKey) async {
     final keys = await getAllParsedKeys();
     final String normHex = hexKey.toLowerCase();
-    return keys.any(
-        (k) => k.hexKey != null && k.hexKey!.toLowerCase() == normHex);
+    return keys
+        .any((k) => k.hexKey != null && k.hexKey!.toLowerCase() == normHex);
   }
 }
 

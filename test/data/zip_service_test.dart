@@ -38,13 +38,16 @@ void main() {
 
     test('updateKeyNameInContent replaces existing name line', () {
       const original = 'name "Old Name"\nkey 1234567890abcdef\n';
-      final updated = ZipService.updateKeyNameInContent(original, 'New Name_14:30:45/05.11.26');
-      expect(updated, 'name "New Name_14:30:45/05.11.26"\nkey 1234567890abcdef\n');
+      final updated = ZipService.updateKeyNameInContent(
+          original, 'New Name_14:30:45/05.11.26');
+      expect(
+          updated, 'name "New Name_14:30:45/05.11.26"\nkey 1234567890abcdef\n');
     });
 
     test('updateKeyNameInContent prepends name if no name line exists', () {
       const original = 'key 1234567890abcdef\n';
-      final updated = ZipService.updateKeyNameInContent(original, 'Created Name');
+      final updated =
+          ZipService.updateKeyNameInContent(original, 'Created Name');
       expect(updated, 'name "Created Name"\nkey 1234567890abcdef\n');
     });
   });

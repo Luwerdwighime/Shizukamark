@@ -159,7 +159,8 @@ class AppLocalizationsRu extends AppLocalizations {
       'Введите корректное имя ключа (1–128 символов)';
 
   @override
-  String get createKeyErrorDuplicateName => 'Ключ с таким именем уже существует';
+  String get createKeyErrorDuplicateName =>
+      'Ключ с таким именем уже существует';
 
   @override
   String get selectKeyTitle => 'Выберите ключ';
