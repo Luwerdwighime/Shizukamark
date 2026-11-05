@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import '../../core/audio_processor.dart';
-import '../../core/native_channel.dart';
 import '../../core/path_constants.dart';
 import '../../core/result.dart';
 import '../../core/stego_processor.dart';
@@ -51,8 +51,12 @@ class ApplyMarkController {
     required String inputAudioPath,
     required KeyInfo selectedKey,
     required AudioCodec codec,
-    String? customSavePath,
     required Function(ProgressDialogState) onProgress,
+    required Future<Result<String>> Function({
+      required String tempPath,
+      required String targetFileName,
+      required Uint8List bytes,
+    }) onSave,
     AppLocalizations? l10n,
   }) async {
     _isCancelled = false;
@@ -165,40 +169,6 @@ class ApplyMarkController {
         return failure(encodeRes.error!);
       }
 
-      // --- STEP 4: Save to Destination (MediaStore or Custom Path) ---
-      String finalSavedPath;
-      if (customSavePath != null && customSavePath.isNotEmpty) {
-        try {
-          final File src = File(tempEncodedPath);
-          final File dst = File(customSavePath);
-          await dst.parent.create(recursive: true);
-          await src.copy(dst.path);
-          finalSavedPath = dst.path;
-        } catch (e) {
-          final prefix = l10n?.errorSaving ?? 'Ошибка сохранения';
-          return failure('$prefix: $e');
-        }
-      } else {
-        final Result<String> saveRes =
-            await NativeChannel.saveAudioToMediaStore(
-          filePath: tempEncodedPath,
-          fileName: targetFileName,
-          mimeType: codec.mimeType,
-        );
-        if (saveRes.isError) {
-          final prefix = l10n?.errorSaving ?? 'Ошибка сохранения';
-          return failure('$prefix: ${saveRes.error}');
-        }
-        finalSavedPath = saveRes.value!;
-      }
-
-      // --- STEP 5: Save message to SQLite database ---
-      await _databaseHelper.insertMessage(
-        msg: secretMessage,
-        hash: hash32,
-        ts: DateTime.now().millisecondsSinceEpoch,
-      );
-
       // Mark Step 3 completed
       steps[2] = steps[2].copyWith(isCompleted: true, isRunning: false);
       state = state.copyWith(
@@ -207,6 +177,28 @@ class ApplyMarkController {
         currentOperation: 'Завершено',
       );
       onProgress(state);
+
+      // --- STEP 4: Save to Destination via SAF onSave callback ---
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
+      final Uint8List audioBytes = await File(tempEncodedPath).readAsBytes();
+      final Result<String> saveRes = await onSave(
+        tempPath: tempEncodedPath,
+        targetFileName: targetFileName,
+        bytes: audioBytes,
+      );
+      if (saveRes.isError) {
+        return failure(saveRes.error!);
+      }
+      final String finalSavedPath = saveRes.value!;
+
+      // --- STEP 5: Save message to SQLite database ---
+      await _databaseHelper.insertMessage(
+        msg: secretMessage,
+        hash: hash32,
+        ts: DateTime.now().millisecondsSinceEpoch,
+      );
 
       return success(finalSavedPath);
     } finally {

@@ -21,7 +21,7 @@
   "applyMarkKeyHint": "Виберіть ключ",
   "applyMarkOr": "або",
   "applyMarkCreateKey": "Створити новий ключ",
-  "applyMarkExportFolder": "Папка експорту: Music/Shizukamark (MediaStore)",
+  "applyMarkExportFolder": "Папка експорту",
   "applyMarkUseMediaStore": "Системна папка Music/Shizukamark (MediaStore)",
   "applyMarkUseCustomSave": "Власне збереження (діалог збереження)",
   "applyMarkCustomFolder": "Зберегти як: {path}",

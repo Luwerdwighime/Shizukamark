@@ -47,8 +47,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get applyMarkCreateKey => '新しいキーを作成';
 
   @override
-  String get applyMarkExportFolder =>
-      'エクスポート先フォルダ: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder => 'エクスポート先フォルダ';
 
   @override
   String get applyMarkUseMediaStore =>

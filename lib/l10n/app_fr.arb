@@ -21,7 +21,7 @@
   "applyMarkKeyHint": "Sélectionnez une clé",
   "applyMarkOr": "ou",
   "applyMarkCreateKey": "Créer une nouvelle clé",
-  "applyMarkExportFolder": "Dossier d'exportation: Music/Shizukamark (MediaStore)",
+  "applyMarkExportFolder": "Dossier d'exportation",
   "applyMarkUseMediaStore": "Dossier système Music/Shizukamark (MediaStore)",
   "applyMarkUseCustomSave": "Enregistrement personnalisé (boîte de dialogue)",
   "applyMarkCustomFolder": "Enregistrer sous: {path}",

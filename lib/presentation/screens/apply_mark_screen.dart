@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import '../../core/result.dart';
+import '../../data/settings/export_settings.dart';
 import '../../domain/models/audio_codec.dart';
 import '../../domain/models/key_info.dart';
 import '../../domain/models/progress_state.dart';
@@ -28,7 +30,6 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
   String? _inputAudioPath;
   KeyInfo? _selectedKey;
   AudioCodec _selectedCodec = AudioCodec.aac;
-  bool _useCustomSave = false;
 
   final ApplyMarkController _controller = ApplyMarkController();
 
@@ -75,23 +76,7 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
     if (chosenCodec == null) return;
     _selectedCodec = chosenCodec;
 
-    // 2. Resolve destination path if custom save is selected
-    String? customPath;
-    if (_useCustomSave) {
-      final String baseName = p.basenameWithoutExtension(_inputAudioPath!);
-      final String defaultFileName = '${baseName}_wm${chosenCodec.extension}';
-      customPath = await FilePicker.platform.saveFile(
-        dialogTitle: l10n.codecDialogTitle,
-        fileName: defaultFileName,
-        type: FileType.custom,
-        allowedExtensions: [chosenCodec.extension.replaceFirst('.', '')],
-      );
-      if (customPath == null) {
-        return; // User cancelled save location picker
-      }
-    }
-
-    // 3. Open progress dialog
+    // 2. Open progress dialog
     ProgressDialogState currentState = ProgressDialogState(
       steps: const [],
       progress: 0.0,
@@ -99,11 +84,13 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
     );
 
     StateSetter? setDialogState;
+    BuildContext? progressDialogContext;
 
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (dialogCtx) {
+        progressDialogContext = dialogCtx;
         return StatefulBuilder(
           builder: (ctx, setStateFunc) {
             setDialogState = setStateFunc;
@@ -119,7 +106,7 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
       },
     );
 
-    // 4. Execute process
+    // 3. Execute process
     Result<String> result;
     try {
       result = await _controller.execute(
@@ -127,7 +114,6 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
         inputAudioPath: _inputAudioPath!,
         selectedKey: _selectedKey!,
         codec: _selectedCodec,
-        customSavePath: customPath,
         l10n: l10n,
         onProgress: (newState) {
           currentState = newState;
@@ -135,14 +121,56 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
             setDialogState?.call(() {});
           }
         },
+        onSave: ({required tempPath, required targetFileName, required bytes}) async {
+          // Close progress dialog so the SAF save picker is shown cleanly
+          if (progressDialogContext != null &&
+              Navigator.of(progressDialogContext!).canPop()) {
+            Navigator.of(progressDialogContext!).pop();
+            progressDialogContext = null;
+          }
+
+          final String? initialDir = await ExportSettings.getExportDir();
+          final String? outputPath = await FilePicker.platform.saveFile(
+            dialogTitle: l10n.codecDialogTitle,
+            fileName: targetFileName,
+            initialDirectory: initialDir,
+            type: FileType.custom,
+            allowedExtensions: [_selectedCodec.extension.replaceFirst('.', '')],
+            bytes: bytes,
+          );
+
+          if (outputPath == null) {
+            return failure(l10n.errorOperationCancelled);
+          }
+
+          if (!Platform.isAndroid && !Platform.isIOS) {
+            String finalPath = outputPath;
+            if (!finalPath
+                .toLowerCase()
+                .endsWith(_selectedCodec.extension.toLowerCase())) {
+              finalPath = '$finalPath${_selectedCodec.extension}';
+            }
+            final File destFile = File(finalPath);
+            await destFile.parent.create(recursive: true);
+            await destFile.writeAsBytes(bytes);
+          }
+
+          final String chosenDir = p.dirname(outputPath);
+          if (chosenDir.isNotEmpty && chosenDir != '.') {
+            await ref.read(exportDirProvider.notifier).setDir(chosenDir);
+          }
+
+          return success(outputPath);
+        },
       );
     } catch (e) {
       result = failure(e.toString());
     }
 
     // Close progress dialog if still open
-    if (mounted && Navigator.of(context).canPop()) {
-      Navigator.of(context).pop();
+    if (progressDialogContext != null &&
+        Navigator.of(progressDialogContext!).canPop()) {
+      Navigator.of(progressDialogContext!).pop();
     }
 
     if (result.isSuccess && mounted) {
@@ -251,41 +279,83 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
               const SizedBox(height: 16),
 
               // 6. модуль сохранения: выбор места экспорта
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFFD0D5DD)),
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RadioListTile<bool>(
-                      value: false,
-                      groupValue: _useCustomSave,
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        l10n.applyMarkUseMediaStore,
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                      onChanged: (val) =>
-                          setState(() => _useCustomSave = false),
+              Consumer(
+                builder: (context, ref, _) {
+                  final String currentExportDir = ref.watch(exportDirProvider);
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: const Color(0xFFD0D5DD)),
                     ),
-                    RadioListTile<bool>(
-                      value: true,
-                      groupValue: _useCustomSave,
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        l10n.applyMarkUseCustomSave,
-                        style: const TextStyle(fontSize: 14),
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () async {
+                          try {
+                            final String? pickedDir =
+                                await FilePicker.platform.getDirectoryPath(
+                              dialogTitle: l10n.applyMarkExportFolder,
+                              initialDirectory: currentExportDir,
+                            );
+                            if (pickedDir != null && pickedDir.isNotEmpty) {
+                              await ref
+                                  .read(exportDirProvider.notifier)
+                                  .setDir(pickedDir);
+                            }
+                          } catch (_) {}
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 12),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.folder_outlined,
+                                  color: Color(0xFF475467), size: 24),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      l10n.applyMarkExportFolder,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xFF475467),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      FsPickerField.formatBreakablePath(
+                                          currentExportDir.isEmpty
+                                              ? (Platform.isAndroid
+                                                  ? '/storage/emulated/0'
+                                                  : '/')
+                                              : currentExportDir),
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: Color(0xFF1D2939),
+                                      ),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.edit_outlined,
+                                  size: 18, color: Color(0xFF98A2B3)),
+                            ],
+                          ),
+                        ),
                       ),
-                      onChanged: (val) => setState(() => _useCustomSave = true),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
               const SizedBox(height: 32),
 

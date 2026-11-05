@@ -21,7 +21,7 @@
   "applyMarkKeyHint": "キーを選択",
   "applyMarkOr": "または",
   "applyMarkCreateKey": "新しいキーを作成",
-  "applyMarkExportFolder": "エクスポート先フォルダ: Music/Shizukamark (MediaStore)",
+  "applyMarkExportFolder": "エクスポート先フォルダ",
   "applyMarkUseMediaStore": "システムフォルダ Music/Shizukamark (MediaStore)",
   "applyMarkUseCustomSave": "カスタム保存（保存先選択ダイアログ）",
   "applyMarkCustomFolder": "保存先: {path}",

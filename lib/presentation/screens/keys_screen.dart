@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import '../../core/result.dart';
+import '../../data/settings/export_settings.dart';
 import '../../data/zip/zip_service.dart';
 import '../../domain/models/key_info.dart';
 import '../../l10n/app_localizations.dart';
@@ -81,7 +82,7 @@ class KeysScreen extends ConsumerWidget {
     }
   }
 
-  Future<void> _handleExport(BuildContext context) async {
+  Future<void> _handleExport(BuildContext context, WidgetRef ref) async {
     final l10n = AppLocalizations.of(context)!;
     try {
       final ZipService zipService = ZipService();
@@ -100,16 +101,23 @@ class KeysScreen extends ConsumerWidget {
       final Uint8List zipBytes = zipRes.value!;
       final String defaultName =
           'shizukamark_export_${DateTime.now().millisecondsSinceEpoch}.zip';
+      final String? initialDir = await ExportSettings.getExportDir();
 
       final String? outputPath = await FilePicker.platform.saveFile(
         dialogTitle: l10n.exportDialogTitle,
         fileName: defaultName,
+        initialDirectory: initialDir,
         type: FileType.custom,
         allowedExtensions: ['zip'],
         bytes: zipBytes,
       );
 
       if (outputPath != null) {
+        final String chosenDir = p.dirname(outputPath);
+        if (chosenDir.isNotEmpty && chosenDir != '.') {
+          await ref.read(exportDirProvider.notifier).setDir(chosenDir);
+        }
+
         if (!Platform.isAndroid && !Platform.isIOS) {
           String finalPath = outputPath;
           if (!finalPath.toLowerCase().endsWith('.zip')) {
@@ -250,7 +258,7 @@ class KeysScreen extends ConsumerWidget {
 
               // 4. Кнопка "Экспорт данных"
               OutlinedButton.icon(
-                onPressed: () => _handleExport(context),
+                onPressed: () => _handleExport(context, ref),
                 icon: const Icon(Icons.file_upload_outlined),
                 label: Text(l10n.homeExport),
                 style: OutlinedButton.styleFrom(

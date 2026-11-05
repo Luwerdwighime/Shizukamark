@@ -21,7 +21,7 @@
   "applyMarkKeyHint": "Select key",
   "applyMarkOr": "or",
   "applyMarkCreateKey": "Create new key",
-  "applyMarkExportFolder": "Export folder: Music/Shizukamark (MediaStore)",
+  "applyMarkExportFolder": "Export folder",
   "applyMarkUseMediaStore": "System folder Music/Shizukamark (MediaStore)",
   "applyMarkUseCustomSave": "Custom save (save dialog)",
   "applyMarkCustomFolder": "Save as: {path}",

@@ -47,8 +47,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get applyMarkCreateKey => 'Створити новий ключ';
 
   @override
-  String get applyMarkExportFolder =>
-      'Папка експорту: Music/Shizukamark (MediaStore)';
+  String get applyMarkExportFolder => 'Папка експорту';
 
   @override
   String get applyMarkUseMediaStore =>
