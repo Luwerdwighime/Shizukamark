@@ -23,6 +23,14 @@ class FsPickerField extends StatelessWidget {
     ],
   });
 
+  /// Inserts zero-width spaces after slashes and dots to allow wrapping at these points
+  static String formatBreakablePath(String path) {
+    return path
+        .replaceAll('/', '/\u200B')
+        .replaceAll('\\', '\\\u200B')
+        .replaceAll('.', '.\u200B');
+  }
+
   Future<void> _pickFile(BuildContext context) async {
     try {
       final FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -41,36 +49,48 @@ class FsPickerField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool hasSelection = selectedPath != null && selectedPath!.isNotEmpty;
+    final String displayText = hasSelection
+        ? formatBreakablePath(selectedPath!)
+        : hintText;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFD0D5DD)),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              hasSelection ? selectedPath! : hintText,
-              style: TextStyle(
-                fontSize: 15,
-                color: hasSelection ? Colors.black87 : const Color(0xFF98A2B3),
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xFFD0D5DD)),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () => _pickFile(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    displayText,
+                    style: TextStyle(
+                      fontSize: hasSelection ? 13 : 15,
+                      height: 1.25,
+                      color: hasSelection
+                          ? Colors.black87
+                          : const Color(0xFF98A2B3),
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  '🔍',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
             ),
           ),
-          IconButton(
-            icon: const Text(
-              '🔍',
-              style: TextStyle(fontSize: 20),
-            ),
-            tooltip: hintText,
-            onPressed: () => _pickFile(context),
-          ),
-        ],
+        ),
       ),
     );
   }

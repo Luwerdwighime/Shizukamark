@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../domain/models/key_info.dart';
 import '../../l10n/app_localizations.dart';
 import '../dialogs/select_key_dialog.dart';
+import 'fs_picker_field.dart';
 
 class KeyPickerField extends StatelessWidget {
   final KeyInfo? selectedKey;
@@ -30,43 +31,57 @@ class KeyPickerField extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final bool hasSelection =
         selectedKey != null && selectedKey!.keyPath.isNotEmpty;
-    final String fileName =
+    final String rawFileName =
         hasSelection ? selectedKey!.keyPath.split('/').last : '';
-    final String unnamed =
-        l10n != null ? l10n.keysUnnamed(fileName) : '(Unnamed) · $fileName';
+    final String breakableFileName =
+        FsPickerField.formatBreakablePath(rawFileName);
+    final String unnamed = l10n != null
+        ? l10n.keysUnnamed(breakableFileName)
+        : '(Unnamed) · $breakableFileName';
     final String displayText = hasSelection
-        ? (selectedKey!.name.isNotEmpty ? selectedKey!.name : unnamed)
+        ? (selectedKey!.name.isNotEmpty
+            ? FsPickerField.formatBreakablePath(selectedKey!.name)
+            : unnamed)
         : hintText;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFD0D5DD)),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              displayText,
-              style: TextStyle(
-                fontSize: 15,
-                color: hasSelection ? Colors.black87 : const Color(0xFF98A2B3),
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xFFD0D5DD)),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () => _openSelectDialog(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    displayText,
+                    style: TextStyle(
+                      fontSize: hasSelection ? 13 : 15,
+                      height: 1.25,
+                      color: hasSelection
+                          ? Colors.black87
+                          : const Color(0xFF98A2B3),
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  '🔍',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
             ),
           ),
-          IconButton(
-            icon: const Text(
-              '🔍',
-              style: TextStyle(fontSize: 20),
-            ),
-            tooltip: hintText,
-            onPressed: () => _openSelectDialog(context),
-          ),
-        ],
+        ),
       ),
     );
   }
