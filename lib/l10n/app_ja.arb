@@ -1,0 +1,142 @@
+{
+  "@@locale": "ja",
+
+  "appTitle": "Shizukamark (しずかマーク)",
+
+  "homeApplyMark": "電子透かしを埋め込む",
+  "homeReadMark": "電子透かしを読み取る",
+  "homeKeys": "既知のキー",
+  "homeImport": "データをインポート",
+  "homeExport": "データをエクスポート",
+
+  "applyMarkTitle": "電子透かしを埋め込む",
+  "applyMarkSecretHint": "秘密のメッセージを入力",
+  "applyMarkFileHint": "音声ファイルを選択",
+  "applyMarkKeyHint": "キーを選択",
+  "applyMarkOr": "または",
+  "applyMarkCreateKey": "新しいキーを作成",
+  "applyMarkExportFolder": "エクスポート先フォルダ: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "システムフォルダ Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "カスタム保存（保存先選択ダイアログ）",
+  "applyMarkCustomFolder": "保存先: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "applyMarkButton": "電子透かしを埋め込む",
+  "applyMarkErrorNoMessage": "秘密のメッセージを入力してください",
+  "applyMarkErrorNoFile": "音声ファイルを選択してください",
+  "applyMarkErrorNoKey": "キーを作成または選択してください",
+  "applyMarkSuccessSaved": "ファイルが正常に保存されました: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "readMarkTitle": "電子透かしを読み取る",
+  "readMarkFileHint": "透かし入りの音声ファイルを選択",
+  "readMarkImportHint": "読み取るには、事前に透かし作成者からのデータをインポートしてください。",
+  "readMarkOutputHint": "ここに秘密のメッセージが表示されます",
+  "readMarkPatientCheckbox": "詳細読み取りを使用（低速）",
+  "readMarkPatientSubtitle": "わずかな速度変化を検出しますが、より時間がかかります。",
+  "readMarkButton": "電子透かしを読み取る",
+  "readMarkErrorNoFile": "透かし入りの音声ファイルを選択してください",
+  "readMarkSuccess": "電子透かしの読み取りに成功しました！",
+  "readMarkCopyButton": "クリップボードにコピー",
+  "readMarkCopied": "メッセージをクリップボードにコピーしました",
+
+  "keysTitle": "キー一覧",
+  "keysEmpty": "キーがまだありません。",
+  "keysUnnamed": "(名前なし) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "keysCreateButton": "新しいキーを作成",
+  "keysDeleteConfirm": "保存されたキー「{keyName}」を削除してもよろしいですか？",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
+  "keysDeleteTitle": "キーの削除",
+  "keysDeleted": "キーを削除しました",
+
+  "createKeyTitle": "新しいキーを作成",
+  "createKeyHint": "キー名を入力",
+  "createKeyErrorEmpty": "キー名を空にすることはできません",
+  "createKeyErrorMaxLength": "最大128文字です",
+  "createKeyErrorInvalidChars": "キー名に無効な文字が含まれています",
+  "createKeyErrorGeneral": "有効なキー名を入力してください (1〜128文字)",
+
+  "selectKeyTitle": "キーを選択",
+
+  "codecDialogTitle": "出力音声フォーマット",
+  "codecLossyHeader": "非可逆圧縮 (Lossy):",
+  "codecLosslessHeader": "可逆圧縮 (Lossless):",
+  "codecSelectButton": "選択",
+  "codecAacRecommended": "AAC (推奨)",
+
+  "progressDecoding": "音声をデコード中",
+  "progressApplyingWatermark": "電子透かしを埋め込み中",
+  "progressEncoding": "音声をエンコード中",
+  "progressReadingWatermark": "電子透かしを読み取り中",
+  "progressPreparing": "準備中...",
+  "progressDone": "完了",
+  "progressRunning": "処理中: {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
+
+  "cancelButton": "キャンセル",
+  "okButton": "OK",
+
+  "importSuccess": "データが正常にインポートされました。",
+  "importErrorBadZip": "zipアーカイブの内容が無効です",
+  "importErrorGeneral": "インポートエラー: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportSuccess": "データが正常にエクスポートされました。",
+  "exportErrorGeneral": "エクスポートエラー: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportDialogTitle": "エクスポートデータの保存",
+
+  "errorDecoding": "デコードエラー",
+  "errorApplyingWatermark": "透かし埋め込みエラー",
+  "errorEncoding": "コーデック圧縮エラー",
+  "errorSaving": "保存エラー",
+  "errorStegoExtraction": "ステガノグラフィ抽出エラー",
+  "errorWatermarkNotFound": "電子透かしが見つからないか、対応するキーがありません。",
+  "errorNoKeysAvailable": "ライブラリにキーがありません。まずキーを作成またはインポートしてください。",
+  "errorNativeLibraryNotFound": "audiowmarkライブラリが見つかりません",
+  "errorOutputFileNotCreated": "出力ファイルが作成されませんでした",
+  "errorDeleteKey": "キー削除エラー",
+  "errorCreateKey": "キー作成エラー",
+  "errorExportData": "データエクスポートエラー",
+  "errorOperationCancelled": "操作がキャンセルされました",
+
+  "errorAudioTooShort": "音声が短すぎます（最低5秒必要です）",
+  "errorStereoOnly": "モノラルまたはステレオ音声のみサポートされています（最大2チャンネル）",
+  "errorAudioNotFound": "入力音声ファイルが見つかりません: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "permissionRequired": "アプリの動作には音声ファイルへのアクセス権限が必要です",
+  "menuLanguage": "Language 🎌"
+}

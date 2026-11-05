@@ -13,6 +13,7 @@ import '../../data/db/database_helper.dart';
 import '../../domain/models/audio_codec.dart';
 import '../../domain/models/key_info.dart';
 import '../../domain/models/progress_state.dart';
+import '../../l10n/app_localizations.dart';
 
 class ApplyMarkController {
   final AudioProcessor _audioProcessor;
@@ -52,33 +53,38 @@ class ApplyMarkController {
     required AudioCodec codec,
     String? customSavePath,
     required Function(ProgressDialogState) onProgress,
+    AppLocalizations? l10n,
   }) async {
     _isCancelled = false;
 
     // 1. Validations
     if (!DatabaseHelper.isValidMessage(secretMessage)) {
-      return failure('Введите секретное сообщение');
+      return failure(l10n?.applyMarkErrorNoMessage ?? 'Введите секретное сообщение');
     }
     if (!await File(inputAudioPath).exists()) {
-      return failure('Выберите музло');
+      return failure(l10n?.applyMarkErrorNoFile ?? 'Выберите музло');
     }
     if (selectedKey.keyPath.isEmpty) {
-      return failure('Создайте или выберите ключ');
+      return failure(l10n?.applyMarkErrorNoKey ?? 'Создайте или выберите ключ');
     }
 
     final String hash32 = computeMessageHash(secretMessage);
 
+    final String titleDecoding = l10n?.progressDecoding ?? 'Декодирование аудио';
+    final String titleApplying = l10n?.progressApplyingWatermark ?? 'Наложение водяного знака';
+    final String titleEncoding = l10n?.progressEncoding ?? 'Кодирование аудио';
+
     // Initial progress state
     final List<OperationStep> steps = [
-      const OperationStep(title: 'Декодирование аудио', isRunning: true),
-      const OperationStep(title: 'Наложение водяного знака'),
-      const OperationStep(title: 'Кодирование аудио'),
+      OperationStep(title: titleDecoding, isRunning: true),
+      OperationStep(title: titleApplying),
+      OperationStep(title: titleEncoding),
     ];
 
     ProgressDialogState state = ProgressDialogState(
       steps: steps,
       progress: 0.05,
-      currentOperation: 'Декодирование аудио',
+      currentOperation: titleDecoding,
     );
     onProgress(state);
 
@@ -92,7 +98,9 @@ class ApplyMarkController {
 
     try {
       // --- STEP 1: Decode to PCM WAV 16-bit ---
-      if (_isCancelled) return failure('Операция отменена');
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
       final Result<void> decodeRes =
           await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
       if (decodeRes.isError) {
@@ -105,12 +113,14 @@ class ApplyMarkController {
       state = state.copyWith(
         steps: List.from(steps),
         progress: 0.35,
-        currentOperation: 'Наложение водяного знака',
+        currentOperation: titleApplying,
       );
       onProgress(state);
 
       // --- STEP 2: StegoProcessor Add ---
-      if (_isCancelled) return failure('Операция отменена');
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
       final Result<void> stegoRes = await _stegoProcessor.add(
         PathConstants.inWav,
         PathConstants.outWav,
@@ -118,7 +128,8 @@ class ApplyMarkController {
         keyPath: selectedKey.keyPath,
       );
       if (stegoRes.isError) {
-        return failure('Ошибка наложения водяного знака: ${stegoRes.error}');
+        final prefix = l10n?.errorApplyingWatermark ?? 'Ошибка наложения водяного знака';
+        return failure('$prefix: ${stegoRes.error}');
       }
 
       // Update progress to Step 3
@@ -127,12 +138,14 @@ class ApplyMarkController {
       state = state.copyWith(
         steps: List.from(steps),
         progress: 0.70,
-        currentOperation: 'Кодирование аудио',
+        currentOperation: titleEncoding,
       );
       onProgress(state);
 
       // --- STEP 3: Encode to target codec ---
-      if (_isCancelled) return failure('Операция отменена');
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
       final Directory tempDir = await getTemporaryDirectory();
       final String inputBaseName = p.basenameWithoutExtension(inputAudioPath);
       final String targetFileName = '${inputBaseName}_wm${codec.extension}';
@@ -158,7 +171,8 @@ class ApplyMarkController {
           await src.copy(dst.path);
           finalSavedPath = dst.path;
         } catch (e) {
-          return failure('Ошибка сохранения: $e');
+          final prefix = l10n?.errorSaving ?? 'Ошибка сохранения';
+          return failure('$prefix: $e');
         }
       } else {
         final Result<String> saveRes =
@@ -168,7 +182,8 @@ class ApplyMarkController {
           mimeType: codec.mimeType,
         );
         if (saveRes.isError) {
-          return failure('Ошибка сохранения: ${saveRes.error}');
+          final prefix = l10n?.errorSaving ?? 'Ошибка сохранения';
+          return failure('$prefix: ${saveRes.error}');
         }
         finalSavedPath = saveRes.value!;
       }

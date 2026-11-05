@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/models/key_info.dart';
+import '../../l10n/app_localizations.dart';
 import '../dialogs/select_key_dialog.dart';
 
 class KeyPickerField extends StatelessWidget {
@@ -26,12 +27,16 @@ class KeyPickerField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final bool hasSelection =
         selectedKey != null && selectedKey!.keyPath.isNotEmpty;
+    final String fileName =
+        hasSelection ? selectedKey!.keyPath.split('/').last : '';
+    final String unnamed = l10n != null
+        ? l10n.keysUnnamed(fileName)
+        : '(Unnamed) · $fileName';
     final String displayText = hasSelection
-        ? (selectedKey!.name.isNotEmpty
-            ? selectedKey!.name
-            : '(Без имени) · ${selectedKey!.keyPath.split('/').last}')
+        ? (selectedKey!.name.isNotEmpty ? selectedKey!.name : unnamed)
         : hintText;
 
     return Container(

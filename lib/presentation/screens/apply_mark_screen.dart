@@ -13,6 +13,7 @@ import '../dialogs/progress_dialog.dart';
 import '../providers/apply_mark_controller.dart';
 import '../widgets/fs_picker_field.dart';
 import '../widgets/key_picker_field.dart';
+import '../widgets/language_menu_button.dart';
 import '../widgets/snack_bar_service.dart';
 
 class ApplyMarkScreen extends ConsumerStatefulWidget {
@@ -127,6 +128,7 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
         selectedKey: _selectedKey!,
         codec: _selectedCodec,
         customSavePath: customPath,
+        l10n: l10n,
         onProgress: (newState) {
           currentState = newState;
           if (mounted) {
@@ -135,7 +137,7 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
         },
       );
     } catch (e) {
-      result = failure('Ошибка выполнения: $e');
+      result = failure(e.toString());
     }
 
     // Close progress dialog if still open
@@ -151,9 +153,23 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
         l10n.applyMarkSuccessSaved(result.value ?? ''),
       );
     } else if (mounted) {
+      String errorMessage = result.error ?? l10n.errorApplyingWatermark;
+      if (errorMessage.contains('Операция отменена') ||
+          errorMessage.contains('Operation cancelled')) {
+        errorMessage = l10n.errorOperationCancelled;
+      } else if (errorMessage.contains('Аудио слишком короткое') ||
+          errorMessage.contains('Audio too short')) {
+        errorMessage = l10n.errorAudioTooShort;
+      } else if (errorMessage.contains('Поддерживается только моно или стерео') ||
+          errorMessage.contains('Only mono or stereo')) {
+        errorMessage = l10n.errorStereoOnly;
+      } else if (errorMessage.contains('Выходной файл не был создан') ||
+          errorMessage.contains('Output file was not created')) {
+        errorMessage = l10n.errorOutputFileNotCreated;
+      }
       SnackBarService.showError(
         context,
-        result.error ?? l10n.errorApplyingWatermark,
+        errorMessage,
       );
     }
   }
@@ -165,6 +181,9 @@ class _ApplyMarkScreenState extends ConsumerState<ApplyMarkScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.applyMarkTitle),
+        actions: const [
+          LanguageMenuButton(),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

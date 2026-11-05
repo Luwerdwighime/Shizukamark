@@ -1,0 +1,142 @@
+{
+  "@@locale": "fr",
+
+  "appTitle": "Shizukamark (しずかマーク)",
+
+  "homeApplyMark": "Appliquer la marque",
+  "homeReadMark": "Lire la marque",
+  "homeKeys": "Clés connues",
+  "homeImport": "Importer des données",
+  "homeExport": "Exporter des données",
+
+  "applyMarkTitle": "Appliquer la marque",
+  "applyMarkSecretHint": "Entrez le message secret",
+  "applyMarkFileHint": "Sélectionnez un fichier audio",
+  "applyMarkKeyHint": "Sélectionnez une clé",
+  "applyMarkOr": "ou",
+  "applyMarkCreateKey": "Créer une nouvelle clé",
+  "applyMarkExportFolder": "Dossier d'exportation: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "Dossier système Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "Enregistrement personnalisé (boîte de dialogue)",
+  "applyMarkCustomFolder": "Enregistrer sous: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "applyMarkButton": "Appliquer le filigrane",
+  "applyMarkErrorNoMessage": "Entrez le message secret",
+  "applyMarkErrorNoFile": "Sélectionnez un fichier audio",
+  "applyMarkErrorNoKey": "Créez ou sélectionnez une clé",
+  "applyMarkSuccessSaved": "Fichier enregistré avec succès: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "readMarkTitle": "Lire la marque",
+  "readMarkFileHint": "Sélectionnez l'audio avec filigrane",
+  "readMarkImportHint": "N'oubliez pas d'importer au préalable les données du créateur du filigrane pour pouvoir le lire.",
+  "readMarkOutputHint": "Le message secret apparaîtra ici",
+  "readMarkPatientCheckbox": "Utiliser la lecture approfondie",
+  "readMarkPatientSubtitle": "Détecte les légers changements de vitesse mais prend plus de temps.",
+  "readMarkButton": "Lire le filigrane",
+  "readMarkErrorNoFile": "Sélectionnez un fichier audio avec filigrane",
+  "readMarkSuccess": "Filigrane lu avec succès !",
+  "readMarkCopyButton": "Copier dans le presse-papiers",
+  "readMarkCopied": "Message copié dans le presse-papiers",
+
+  "keysTitle": "Clés",
+  "keysEmpty": "Aucune clé pour le moment.",
+  "keysUnnamed": "(Sans nom) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "keysCreateButton": "Créer une nouvelle clé",
+  "keysDeleteConfirm": "Voulez-vous vraiment supprimer la clé enregistrée \"{keyName}\" ?",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
+  "keysDeleteTitle": "Supprimer la clé",
+  "keysDeleted": "Clé supprimée",
+
+  "createKeyTitle": "Créer une nouvelle clé",
+  "createKeyHint": "Entrez le nom de la clé",
+  "createKeyErrorEmpty": "Le nom de la clé ne peut pas être vide",
+  "createKeyErrorMaxLength": "Maximum 128 caractères",
+  "createKeyErrorInvalidChars": "Caractères non valides dans le nom de la clé",
+  "createKeyErrorGeneral": "Entrez un nom de clé valide (1–128 caractères)",
+
+  "selectKeyTitle": "Sélectionnez une clé",
+
+  "codecDialogTitle": "Format audio de sortie",
+  "codecLossyHeader": "Compression avec perte (Lossy):",
+  "codecLosslessHeader": "Sans perte (Lossless):",
+  "codecSelectButton": "Sélectionner",
+  "codecAacRecommended": "AAC (recommandé)",
+
+  "progressDecoding": "Décodage audio",
+  "progressApplyingWatermark": "Application du filigrane",
+  "progressEncoding": "Encodage audio",
+  "progressReadingWatermark": "Lecture du filigrane",
+  "progressPreparing": "Préparation...",
+  "progressDone": "Terminé",
+  "progressRunning": "En cours : {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
+
+  "cancelButton": "Annuler",
+  "okButton": "OK",
+
+  "importSuccess": "Données importées avec succès.",
+  "importErrorBadZip": "Contenu d'archive zip non valide",
+  "importErrorGeneral": "Erreur d'importation: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportSuccess": "Données exportées avec succès.",
+  "exportErrorGeneral": "Erreur d'exportation: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportDialogTitle": "Enregistrer l'exportation",
+
+  "errorDecoding": "Erreur de décodage",
+  "errorApplyingWatermark": "Erreur lors de l'application du filigrane",
+  "errorEncoding": "Erreur de compression du codec",
+  "errorSaving": "Erreur d'enregistrement",
+  "errorStegoExtraction": "Erreur d'extraction stéganographique",
+  "errorWatermarkNotFound": "Filigrane introuvable ou clé manquante.",
+  "errorNoKeysAvailable": "Aucune clé disponible dans la bibliothèque. Créez ou importez d'abord une clé.",
+  "errorNativeLibraryNotFound": "Bibliothèque audiowmark introuvable",
+  "errorOutputFileNotCreated": "Le fichier de sortie n'a pas été créé",
+  "errorDeleteKey": "Erreur de suppression de la clé",
+  "errorCreateKey": "Erreur de création de la clé",
+  "errorExportData": "Erreur d'exportation de données",
+  "errorOperationCancelled": "Opération annulée",
+
+  "errorAudioTooShort": "Audio trop court pour le filigrane (minimum 5 secondes)",
+  "errorStereoOnly": "Seul l'audio mono ou stéréo est pris en charge (jusqu'à 2 canaux)",
+  "errorAudioNotFound": "Fichier audio d'entrée introuvable: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "permissionRequired": "L'accès aux fichiers audio est requis pour le fonctionnement de l'application",
+  "menuLanguage": "Language 🎌"
+}

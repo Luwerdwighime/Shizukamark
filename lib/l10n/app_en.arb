@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
 
-  "appTitle": "Shizukamark",
+  "appTitle": "Shizukamark (しずかマーク)",
 
   "homeApplyMark": "Apply mark",
   "homeReadMark": "Read mark",
@@ -19,11 +19,21 @@
   "applyMarkUseMediaStore": "System folder Music/Shizukamark (MediaStore)",
   "applyMarkUseCustomSave": "Custom save (save dialog)",
   "applyMarkCustomFolder": "Save as: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
   "applyMarkButton": "Apply watermark",
   "applyMarkErrorNoMessage": "Enter secret message",
   "applyMarkErrorNoFile": "Select audio file",
   "applyMarkErrorNoKey": "Create or select a key",
   "applyMarkSuccessSaved": "File saved successfully: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
 
   "readMarkTitle": "Read mark",
   "readMarkFileHint": "Select watermarked audio",
@@ -40,8 +50,18 @@
   "keysTitle": "Keys",
   "keysEmpty": "No keys yet.",
   "keysUnnamed": "(Unnamed) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "keysCreateButton": "Create new key",
   "keysDeleteConfirm": "Are you sure you want to delete saved key \"{keyName}\"?",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
   "keysDeleteTitle": "Delete key",
   "keysDeleted": "Key deleted",
 
@@ -58,6 +78,7 @@
   "codecLossyHeader": "Lossy compression:",
   "codecLosslessHeader": "Lossless:",
   "codecSelectButton": "Select",
+  "codecAacRecommended": "AAC (recommended)",
 
   "progressDecoding": "Decoding audio",
   "progressApplyingWatermark": "Applying watermark",
@@ -66,6 +87,11 @@
   "progressPreparing": "Preparing...",
   "progressDone": "Done",
   "progressRunning": "Processing {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
 
   "cancelButton": "Cancel",
   "okButton": "OK",
@@ -73,9 +99,19 @@
   "importSuccess": "Data imported successfully.",
   "importErrorBadZip": "Invalid zip archive contents",
   "importErrorGeneral": "Import error: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
 
   "exportSuccess": "Data exported successfully.",
   "exportErrorGeneral": "Export error: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
   "exportDialogTitle": "Save data export",
 
   "errorDecoding": "Decoding error",
@@ -84,6 +120,9 @@
   "errorSaving": "Save error",
   "errorStegoExtraction": "Stego extraction error",
   "errorWatermarkNotFound": "Watermark not found, or you don't have the key.",
+  "errorNoKeysAvailable": "No keys available in the library. Create or import a key first.",
+  "errorNativeLibraryNotFound": "audiowmark library not found",
+  "errorOutputFileNotCreated": "Output file was not created",
   "errorDeleteKey": "Key deletion error",
   "errorCreateKey": "Key creation error",
   "errorExportData": "Data export error",
@@ -92,6 +131,12 @@
   "errorAudioTooShort": "Audio too short for watermark (minimum 5 seconds)",
   "errorStereoOnly": "Only mono or stereo audio supported (up to 2 channels)",
   "errorAudioNotFound": "Input audio file not found: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
 
-  "permissionRequired": "Audio file access is required for the app to work"
+  "permissionRequired": "Audio file access is required for the app to work",
+  "menuLanguage": "Language 🎌"
 }

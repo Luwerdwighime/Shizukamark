@@ -4,8 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_ja.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_uk.dart';
 
 // ignore_for_file: type=lint
 
@@ -31,8 +35,12 @@ abstract class AppLocalizations {
   ];
 
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('fr'),
+    Locale('de'),
+    Locale('ja'),
     Locale('ru'),
-    Locale('en')
+    Locale('uk'),
   ];
 
   String get appTitle;
@@ -41,7 +49,6 @@ abstract class AppLocalizations {
   String get homeKeys;
   String get homeImport;
   String get homeExport;
-
   String get applyMarkTitle;
   String get applyMarkSecretHint;
   String get applyMarkFileHint;
@@ -57,7 +64,6 @@ abstract class AppLocalizations {
   String get applyMarkErrorNoFile;
   String get applyMarkErrorNoKey;
   String applyMarkSuccessSaved(String path);
-
   String get readMarkTitle;
   String get readMarkFileHint;
   String get readMarkImportHint;
@@ -69,7 +75,6 @@ abstract class AppLocalizations {
   String get readMarkSuccess;
   String get readMarkCopyButton;
   String get readMarkCopied;
-
   String get keysTitle;
   String get keysEmpty;
   String keysUnnamed(String fileName);
@@ -77,21 +82,18 @@ abstract class AppLocalizations {
   String keysDeleteConfirm(String keyName);
   String get keysDeleteTitle;
   String get keysDeleted;
-
   String get createKeyTitle;
   String get createKeyHint;
   String get createKeyErrorEmpty;
   String get createKeyErrorMaxLength;
   String get createKeyErrorInvalidChars;
   String get createKeyErrorGeneral;
-
   String get selectKeyTitle;
-
   String get codecDialogTitle;
   String get codecLossyHeader;
   String get codecLosslessHeader;
   String get codecSelectButton;
-
+  String get codecAacRecommended;
   String get progressDecoding;
   String get progressApplyingWatermark;
   String get progressEncoding;
@@ -99,34 +101,32 @@ abstract class AppLocalizations {
   String get progressPreparing;
   String get progressDone;
   String progressRunning(String operation);
-
   String get cancelButton;
   String get okButton;
-
   String get importSuccess;
   String get importErrorBadZip;
   String importErrorGeneral(String error);
-
   String get exportSuccess;
   String exportErrorGeneral(String error);
   String get exportDialogTitle;
-
   String get errorDecoding;
   String get errorApplyingWatermark;
   String get errorEncoding;
   String get errorSaving;
   String get errorStegoExtraction;
   String get errorWatermarkNotFound;
+  String get errorNoKeysAvailable;
+  String get errorNativeLibraryNotFound;
+  String get errorOutputFileNotCreated;
   String get errorDeleteKey;
   String get errorCreateKey;
   String get errorExportData;
   String get errorOperationCancelled;
-
   String get errorAudioTooShort;
   String get errorStereoOnly;
   String errorAudioNotFound(String path);
-
   String get permissionRequired;
+  String get menuLanguage;
 }
 
 class _AppLocalizationsDelegate
@@ -140,7 +140,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ru'].contains(locale.languageCode);
+      <String>['en', 'fr', 'de', 'ja', 'ru', 'uk'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -150,9 +150,17 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'ja':
+      return AppLocalizationsJa();
     case 'ru':
       return AppLocalizationsRu();
+    case 'uk':
+      return AppLocalizationsUk();
   }
 
-  return AppLocalizationsRu();
+  return AppLocalizationsEn();
 }

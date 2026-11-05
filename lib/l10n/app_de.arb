@@ -1,0 +1,142 @@
+{
+  "@@locale": "de",
+
+  "appTitle": "Shizukamark (しずかマーク)",
+
+  "homeApplyMark": "Wasserzeichen anbringen",
+  "homeReadMark": "Wasserzeichen lesen",
+  "homeKeys": "Bekannte Schlüssel",
+  "homeImport": "Daten importieren",
+  "homeExport": "Daten exportieren",
+
+  "applyMarkTitle": "Wasserzeichen anbringen",
+  "applyMarkSecretHint": "Geheime Nachricht eingeben",
+  "applyMarkFileHint": "Audiodatei auswählen",
+  "applyMarkKeyHint": "Schlüssel auswählen",
+  "applyMarkOr": "oder",
+  "applyMarkCreateKey": "Neuen Schlüssel erstellen",
+  "applyMarkExportFolder": "Exportordner: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "Systemordner Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "Benutzerdefiniertes Speichern (Speicherdialog)",
+  "applyMarkCustomFolder": "Speichern unter: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "applyMarkButton": "Wasserzeichen anwenden",
+  "applyMarkErrorNoMessage": "Geben Sie eine geheime Nachricht ein",
+  "applyMarkErrorNoFile": "Wählen Sie eine Audiodatei aus",
+  "applyMarkErrorNoKey": "Erstellen oder wählen Sie einen Schlüssel",
+  "applyMarkSuccessSaved": "Datei erfolgreich gespeichert: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "readMarkTitle": "Wasserzeichen lesen",
+  "readMarkFileHint": "Audiodatei mit Wasserzeichen auswählen",
+  "readMarkImportHint": "Vergessen Sie nicht, zuvor Daten des Wasserzeichen-Erstellers zu importieren, um es lesen zu können.",
+  "readMarkOutputHint": "Hier erscheint die geheime Nachricht",
+  "readMarkPatientCheckbox": "Geduldiges Lesen verwenden",
+  "readMarkPatientSubtitle": "Erkennt geringfügige Geschwindigkeitsänderungen, dauert jedoch länger.",
+  "readMarkButton": "Wasserzeichen lesen",
+  "readMarkErrorNoFile": "Wählen Sie eine Audiodatei mit Wasserzeichen aus",
+  "readMarkSuccess": "Wasserzeichen erfolgreich gelesen!",
+  "readMarkCopyButton": "In Zwischenablage kopieren",
+  "readMarkCopied": "Nachricht in die Zwischenablage kopiert",
+
+  "keysTitle": "Schlüssel",
+  "keysEmpty": "Noch keine Schlüssel vorhanden.",
+  "keysUnnamed": "(Unbenannt) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "keysCreateButton": "Neuen Schlüssel erstellen",
+  "keysDeleteConfirm": "Möchten Sie den gespeicherten Schlüssel \"{keyName}\" wirklich löschen?",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
+  "keysDeleteTitle": "Schlüssel löschen",
+  "keysDeleted": "Schlüssel gelöscht",
+
+  "createKeyTitle": "Neuen Schlüssel erstellen",
+  "createKeyHint": "Schlüsselname eingeben",
+  "createKeyErrorEmpty": "Schlüsselname darf nicht leer sein",
+  "createKeyErrorMaxLength": "Maximal 128 Zeichen",
+  "createKeyErrorInvalidChars": "Ungültige Zeichen im Schlüsselnamen",
+  "createKeyErrorGeneral": "Geben Sie einen gültigen Schlüsselnamen ein (1–128 Zeichen)",
+
+  "selectKeyTitle": "Schlüssel auswählen",
+
+  "codecDialogTitle": "Ausgabe-Audioformat",
+  "codecLossyHeader": "Verlustbehaftete Kompression (Lossy):",
+  "codecLosslessHeader": "Verlustfrei (Lossless):",
+  "codecSelectButton": "Auswählen",
+  "codecAacRecommended": "AAC (empfohlen)",
+
+  "progressDecoding": "Audio wird dekodiert",
+  "progressApplyingWatermark": "Wasserzeichen wird angewendet",
+  "progressEncoding": "Audio wird kodiert",
+  "progressReadingWatermark": "Wasserzeichen wird gelesen",
+  "progressPreparing": "Vorbereitung...",
+  "progressDone": "Abgeschlossen",
+  "progressRunning": "Wird ausgeführt: {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
+
+  "cancelButton": "Abbrechen",
+  "okButton": "OK",
+
+  "importSuccess": "Daten erfolgreich importiert.",
+  "importErrorBadZip": "Ungültiger Inhalt des ZIP-Archivs",
+  "importErrorGeneral": "Importfehler: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportSuccess": "Daten erfolgreich exportiert.",
+  "exportErrorGeneral": "Exportfehler: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportDialogTitle": "Datenexport speichern",
+
+  "errorDecoding": "Dekodierungsfehler",
+  "errorApplyingWatermark": "Fehler beim Anwenden des Wasserzeichens",
+  "errorEncoding": "Codec-Komprimierungsfehler",
+  "errorSaving": "Speicherfehler",
+  "errorStegoExtraction": "Steganographie-Extraktionsfehler",
+  "errorWatermarkNotFound": "Wasserzeichen nicht gefunden oder passender Schlüssel fehlt.",
+  "errorNoKeysAvailable": "Keine Schlüssel in der Bibliothek verfügbar. Erstellen oder importieren Sie zuerst einen Schlüssel.",
+  "errorNativeLibraryNotFound": "audiowmark-Bibliothek nicht gefunden",
+  "errorOutputFileNotCreated": "Ausgabedatei wurde nicht erstellt",
+  "errorDeleteKey": "Fehler beim Löschen des Schlüssels",
+  "errorCreateKey": "Fehler beim Erstellen des Schlüssels",
+  "errorExportData": "Fehler beim Datenexport",
+  "errorOperationCancelled": "Vorgang abgebrochen",
+
+  "errorAudioTooShort": "Audio ist zu kurz für ein Wasserzeichen (mindestens 5 Sekunden)",
+  "errorStereoOnly": "Nur Mono- oder Stereo-Audio unterstützt (bis zu 2 Kanäle)",
+  "errorAudioNotFound": "Eingabe-Audiodatei nicht gefunden: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "permissionRequired": "Für den Betrieb der App ist Zugriff auf Audiodateien erforderlich",
+  "menuLanguage": "Language 🎌"
+}

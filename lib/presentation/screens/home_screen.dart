@@ -7,6 +7,7 @@ import '../../core/result.dart';
 import '../../data/zip/zip_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../providers/keys_provider.dart';
+import '../widgets/language_menu_button.dart';
 import '../widgets/snack_bar_service.dart';
 import 'apply_mark_screen.dart';
 import 'keys_screen.dart';
@@ -32,9 +33,14 @@ class HomeScreen extends ConsumerWidget {
           await ref.read(keysProvider.notifier).loadKeys();
           SnackBarService.showSuccess(context, l10n.importSuccess);
         } else if (context.mounted) {
+          String errMsg = importRes.error ?? l10n.importErrorBadZip;
+          if (errMsg.contains('неправильным содержимым') ||
+              errMsg.contains('Invalid zip')) {
+            errMsg = l10n.importErrorBadZip;
+          }
           SnackBarService.showError(
             context,
-            importRes.error ?? l10n.importErrorBadZip,
+            errMsg,
           );
         }
       }
@@ -107,6 +113,9 @@ class HomeScreen extends ConsumerWidget {
           l10n.appTitle,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: const [
+          LanguageMenuButton(),
+        ],
       ),
       body: SafeArea(
         child: Center(

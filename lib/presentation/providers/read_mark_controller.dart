@@ -6,6 +6,7 @@ import '../../core/result.dart';
 import '../../core/stego_processor.dart';
 import '../../core/wakelock_manager.dart';
 import '../../domain/models/progress_state.dart';
+import '../../l10n/app_localizations.dart';
 
 class ReadMarkController {
   final AudioProcessor _audioProcessor;
@@ -31,22 +32,29 @@ class ReadMarkController {
     required String inputAudioPath,
     required bool isPatient,
     required Function(ProgressDialogState) onProgress,
+    AppLocalizations? l10n,
   }) async {
     _isCancelled = false;
 
     if (!await File(inputAudioPath).exists()) {
-      return failure('Выберите помеченное водяным знаком музло');
+      return failure(
+          l10n?.readMarkErrorNoFile ?? 'Выберите помеченное водяным знаком музло');
     }
 
+    final String titleDecoding = l10n?.progressDecoding ?? 'Декодирование аудио';
+    final String titleReading =
+        l10n?.progressReadingWatermark ?? 'Чтение водяного знака';
+    final String titleDone = l10n?.progressDone ?? 'Завершено';
+
     final List<OperationStep> steps = [
-      const OperationStep(title: 'Декодирование аудио', isRunning: true),
-      const OperationStep(title: 'Чтение водяного знака'),
+      OperationStep(title: titleDecoding, isRunning: true),
+      OperationStep(title: titleReading),
     ];
 
     ProgressDialogState state = ProgressDialogState(
       steps: steps,
       progress: 0.1,
-      currentOperation: 'Декодирование аудио',
+      currentOperation: titleDecoding,
     );
     onProgress(state);
 
@@ -58,11 +66,14 @@ class ReadMarkController {
 
     try {
       // --- STEP 1: Decode to PCM WAV 16-bit ---
-      if (_isCancelled) return failure('Операция отменена');
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
       final Result<void> decodeRes =
           await _audioProcessor.decodeToPcm(inputAudioPath, inWavPath);
       if (decodeRes.isError) {
-        return failure('Ошибка декодирования: ${decodeRes.error}');
+        final prefix = l10n?.errorDecoding ?? 'Ошибка декодирования';
+        return failure('$prefix: ${decodeRes.error}');
       }
 
       // Update progress to Step 2
@@ -71,12 +82,14 @@ class ReadMarkController {
       state = state.copyWith(
         steps: List.from(steps),
         progress: 0.5,
-        currentOperation: 'Чтение водяного знака',
+        currentOperation: titleReading,
       );
       onProgress(state);
 
       // --- STEP 2: StegoProcessor Get ---
-      if (_isCancelled) return failure('Операция отменена');
+      if (_isCancelled) {
+        return failure(l10n?.errorOperationCancelled ?? 'Операция отменена');
+      }
       final Result<String> stegoRes =
           await _stegoProcessor.get(PathConstants.inWav, isPatient);
       if (stegoRes.isError) {
@@ -87,7 +100,7 @@ class ReadMarkController {
       state = state.copyWith(
         steps: List.from(steps),
         progress: 1.0,
-        currentOperation: 'Завершено',
+        currentOperation: titleDone,
       );
       onProgress(state);
 

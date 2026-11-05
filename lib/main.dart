@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'core/path_constants.dart';
 import 'data/db/database_helper.dart';
 import 'l10n/app_localizations.dart';
+import 'presentation/providers/locale_provider.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/theme/app_theme.dart';
 
@@ -50,20 +51,32 @@ Future<void> _initApp() async {
   } catch (_) {}
 }
 
-class ShizukamarkApp extends StatelessWidget {
+class ShizukamarkApp extends ConsumerWidget {
   const ShizukamarkApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocale = ref.watch(localeProvider);
+
     return MaterialApp(
-      title: 'Shizukamark',
+      title: 'Shizukamark (しずかマーク)',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
 
       // Localization support
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('ru'),
+      locale: currentLocale,
+      localeResolutionCallback: (deviceLocale, supportedLocales) {
+        if (deviceLocale != null) {
+          for (final supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == deviceLocale.languageCode) {
+              return supportedLocale;
+            }
+          }
+        }
+        return const Locale('en');
+      },
 
       home: const HomeScreen(),
     );

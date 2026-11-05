@@ -11,6 +11,7 @@ import '../../l10n/app_localizations.dart';
 import '../dialogs/confirm_delete_dialog.dart';
 import '../dialogs/create_key_dialog.dart';
 import '../providers/keys_provider.dart';
+import '../widgets/language_menu_button.dart';
 import '../widgets/snack_bar_service.dart';
 
 class KeysScreen extends ConsumerWidget {
@@ -61,9 +62,14 @@ class KeysScreen extends ConsumerWidget {
           await ref.read(keysProvider.notifier).loadKeys();
           SnackBarService.showSuccess(context, l10n.importSuccess);
         } else if (context.mounted) {
+          String errMsg = importRes.error ?? l10n.importErrorBadZip;
+          if (errMsg.contains('неправильным содержимым') ||
+              errMsg.contains('Invalid zip')) {
+            errMsg = l10n.importErrorBadZip;
+          }
           SnackBarService.showError(
             context,
-            importRes.error ?? l10n.importErrorBadZip,
+            errMsg,
           );
         }
       }
@@ -134,6 +140,9 @@ class KeysScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.keysTitle),
+        actions: const [
+          LanguageMenuButton(),
+        ],
       ),
       body: SafeArea(
         child: Padding(

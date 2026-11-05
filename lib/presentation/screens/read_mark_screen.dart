@@ -6,6 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../dialogs/progress_dialog.dart';
 import '../providers/read_mark_controller.dart';
 import '../widgets/fs_picker_field.dart';
+import '../widgets/language_menu_button.dart';
 import '../widgets/snack_bar_service.dart';
 
 class ReadMarkScreen extends StatefulWidget {
@@ -61,6 +62,7 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
       result = await _controller.execute(
         inputAudioPath: _inputAudioPath!,
         isPatient: _isPatient,
+        l10n: l10n,
         onProgress: (newState) {
           currentState = newState;
           if (mounted) {
@@ -69,7 +71,7 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
         },
       );
     } catch (e) {
-      result = failure('Ошибка выполнения: $e');
+      result = failure(e.toString());
     }
 
     if (mounted && Navigator.of(context).canPop()) {
@@ -82,9 +84,20 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
       });
       SnackBarService.showSuccess(context, l10n.readMarkSuccess);
     } else if (mounted) {
+      String errorMessage = result.error ?? l10n.errorWatermarkNotFound;
+      if (errorMessage.contains('В библиотеке нет ключей') ||
+          errorMessage.contains('No keys available')) {
+        errorMessage = l10n.errorNoKeysAvailable;
+      } else if (errorMessage.contains('Водяной знак не обнаружен') ||
+          errorMessage.contains('Watermark not found')) {
+        errorMessage = l10n.errorWatermarkNotFound;
+      } else if (errorMessage.contains('Операция отменена') ||
+          errorMessage.contains('Operation cancelled')) {
+        errorMessage = l10n.errorOperationCancelled;
+      }
       SnackBarService.showError(
         context,
-        result.error ?? l10n.errorWatermarkNotFound,
+        errorMessage,
       );
     }
   }
@@ -105,6 +118,9 @@ class _ReadMarkScreenState extends State<ReadMarkScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.readMarkTitle),
+        actions: const [
+          LanguageMenuButton(),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

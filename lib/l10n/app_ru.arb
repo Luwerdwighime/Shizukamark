@@ -1,7 +1,7 @@
 {
   "@@locale": "ru",
 
-  "appTitle": "Shizukamark",
+  "appTitle": "Shizukamark (しずかマーク)",
 
   "homeApplyMark": "Нанести знак",
   "homeReadMark": "Прочитать знак",
@@ -78,6 +78,7 @@
   "codecLossyHeader": "Сжатие с потерями (Lossy):",
   "codecLosslessHeader": "Без потерь (Lossless):",
   "codecSelectButton": "Выбрать",
+  "codecAacRecommended": "AAC (рекомендуется)",
 
   "progressDecoding": "Декодирование аудио",
   "progressApplyingWatermark": "Наложение водяного знака",
@@ -119,6 +120,9 @@
   "errorSaving": "Ошибка сохранения",
   "errorStegoExtraction": "Ошибка извлечения стего",
   "errorWatermarkNotFound": "Водяной знак не обнаружен, или у вас нет к нему ключа.",
+  "errorNoKeysAvailable": "В библиотеке нет ключей. Сначала создайте или импортируйте ключ.",
+  "errorNativeLibraryNotFound": "Библиотека audiowmark не найдена",
+  "errorOutputFileNotCreated": "Выходной файл не был создан",
   "errorDeleteKey": "Ошибка удаления ключа",
   "errorCreateKey": "Ошибка создания ключа",
   "errorExportData": "Ошибка экспорта данных",
@@ -133,5 +137,6 @@
     }
   },
 
-  "permissionRequired": "Для работы приложения необходим доступ к аудиофайлам"
+  "permissionRequired": "Для работы приложения необходим доступ к аудиофайлам",
+  "menuLanguage": "Language 🎌"
 }

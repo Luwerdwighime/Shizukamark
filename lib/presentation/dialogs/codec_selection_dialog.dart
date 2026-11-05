@@ -44,9 +44,9 @@ class _CodecSelectionDialogState extends State<CodecSelectionDialog> {
                     color: Colors.blueGrey),
               ),
             ),
-            _buildRadio(AudioCodec.aac),
-            _buildRadio(AudioCodec.opus),
-            _buildRadio(AudioCodec.mp3),
+            _buildRadio(AudioCodec.aac, l10n),
+            _buildRadio(AudioCodec.opus, l10n),
+            _buildRadio(AudioCodec.mp3, l10n),
             const Divider(height: 16),
             Padding(
               padding: const EdgeInsets.only(left: 12, top: 4, bottom: 4),
@@ -58,9 +58,9 @@ class _CodecSelectionDialogState extends State<CodecSelectionDialog> {
                     color: Colors.blueGrey),
               ),
             ),
-            _buildRadio(AudioCodec.flac),
-            _buildRadio(AudioCodec.wav),
-            _buildRadio(AudioCodec.alac),
+            _buildRadio(AudioCodec.flac, l10n),
+            _buildRadio(AudioCodec.wav, l10n),
+            _buildRadio(AudioCodec.alac, l10n),
           ],
         ),
       ),
@@ -77,12 +77,15 @@ class _CodecSelectionDialogState extends State<CodecSelectionDialog> {
     );
   }
 
-  Widget _buildRadio(AudioCodec codec) {
+  Widget _buildRadio(AudioCodec codec, AppLocalizations l10n) {
+    final String label = (codec == AudioCodec.aac)
+        ? l10n.codecAacRecommended
+        : codec.displayName;
     return RadioListTile<AudioCodec>(
       value: codec,
       groupValue: _selected,
       dense: true,
-      title: Text(codec.displayName),
+      title: Text(label),
       onChanged: (val) {
         if (val != null) setState(() => _selected = val);
       },

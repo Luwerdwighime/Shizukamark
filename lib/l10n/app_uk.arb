@@ -1,0 +1,142 @@
+{
+  "@@locale": "uk",
+
+  "appTitle": "Shizukamark (しずかマーク)",
+
+  "homeApplyMark": "Нанести знак",
+  "homeReadMark": "Прочитати знак",
+  "homeKeys": "Відомі ключі",
+  "homeImport": "Імпорт даних",
+  "homeExport": "Експорт даних",
+
+  "applyMarkTitle": "Нанести знак",
+  "applyMarkSecretHint": "Введіть секретне повідомлення",
+  "applyMarkFileHint": "Виберіть аудіофайл",
+  "applyMarkKeyHint": "Виберіть ключ",
+  "applyMarkOr": "або",
+  "applyMarkCreateKey": "Створити новий ключ",
+  "applyMarkExportFolder": "Папка експорту: Music/Shizukamark (MediaStore)",
+  "applyMarkUseMediaStore": "Системна папка Music/Shizukamark (MediaStore)",
+  "applyMarkUseCustomSave": "Власне збереження (діалог збереження)",
+  "applyMarkCustomFolder": "Зберегти як: {path}",
+  "@applyMarkCustomFolder": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "applyMarkButton": "Накласти водяний знак",
+  "applyMarkErrorNoMessage": "Введіть секретне повідомлення",
+  "applyMarkErrorNoFile": "Виберіть аудіофайл",
+  "applyMarkErrorNoKey": "Створіть або виберіть ключ",
+  "applyMarkSuccessSaved": "Файл успішно збережено: {path}",
+  "@applyMarkSuccessSaved": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "readMarkTitle": "Прочитати знак",
+  "readMarkFileHint": "Виберіть аудіо з водяним знаком",
+  "readMarkImportHint": "Не забудьте заздалегідь імпортувати дані від творця водяного знака, щоб мати змогу прочитати його.",
+  "readMarkOutputHint": "Тут з'явиться секретне повідомлення",
+  "readMarkPatientCheckbox": "Використовувати ретельне читання",
+  "readMarkPatientSubtitle": "Виявляє незначні зміни швидкості, але потребує більше часу.",
+  "readMarkButton": "Прочитати водяний знак",
+  "readMarkErrorNoFile": "Виберіть аудіофайл з водяним знаком",
+  "readMarkSuccess": "Водяний знак успішно прочитано!",
+  "readMarkCopyButton": "Скопіювати в буфер обміну",
+  "readMarkCopied": "Повідомлення скопійовано в буфер обміну",
+
+  "keysTitle": "Ключі",
+  "keysEmpty": "Ключів поки немає.",
+  "keysUnnamed": "(Без назви) · {fileName}",
+  "@keysUnnamed": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "keysCreateButton": "Створити новий ключ",
+  "keysDeleteConfirm": "Ви дійсно бажаєте видалити збережений ключ \"{keyName}\"?",
+  "@keysDeleteConfirm": {
+    "placeholders": {
+      "keyName": { "type": "String" }
+    }
+  },
+  "keysDeleteTitle": "Видалення ключа",
+  "keysDeleted": "Ключ видалено",
+
+  "createKeyTitle": "Створити новий ключ",
+  "createKeyHint": "Введіть ім'я ключа",
+  "createKeyErrorEmpty": "Ім'я ключа не може бути порожнім",
+  "createKeyErrorMaxLength": "Максимум 128 символів",
+  "createKeyErrorInvalidChars": "Неприпустимі символи в імені ключа",
+  "createKeyErrorGeneral": "Введіть коректне ім'я ключа (1–128 символів)",
+
+  "selectKeyTitle": "Виберіть ключ",
+
+  "codecDialogTitle": "Формат вихідного аудіо",
+  "codecLossyHeader": "Стиснення з втратами (Lossy):",
+  "codecLosslessHeader": "Без втрат (Lossless):",
+  "codecSelectButton": "Вибрати",
+  "codecAacRecommended": "AAC (рекомендовано)",
+
+  "progressDecoding": "Декодування аудіо",
+  "progressApplyingWatermark": "Накладання водяного знака",
+  "progressEncoding": "Кодування аудіо",
+  "progressReadingWatermark": "Читання водяного знака",
+  "progressPreparing": "Підготовка...",
+  "progressDone": "Завершено",
+  "progressRunning": "Виконується {operation}",
+  "@progressRunning": {
+    "placeholders": {
+      "operation": { "type": "String" }
+    }
+  },
+
+  "cancelButton": "Скасувати",
+  "okButton": "ОК",
+
+  "importSuccess": "Дані успішно імпортовано.",
+  "importErrorBadZip": "zip архів з неправильним вмістом",
+  "importErrorGeneral": "Помилка імпорту: {error}",
+  "@importErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportSuccess": "Дані успішно експортовано.",
+  "exportErrorGeneral": "Помилка експорту: {error}",
+  "@exportErrorGeneral": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportDialogTitle": "Зберегти експорт даних",
+
+  "errorDecoding": "Помилка декодування",
+  "errorApplyingWatermark": "Помилка накладання водяного знака",
+  "errorEncoding": "Помилка стиснення кодеком",
+  "errorSaving": "Помилка збереження",
+  "errorStegoExtraction": "Помилка вилучення стего",
+  "errorWatermarkNotFound": "Водяний знак не знайдено, або у вас немає для нього ключа.",
+  "errorNoKeysAvailable": "У бібліотеці немає ключів. Спочатку створіть або імпортуйте ключ.",
+  "errorNativeLibraryNotFound": "Бібліотеку audiowmark не знайдено",
+  "errorOutputFileNotCreated": "Вихідний файл не було створено",
+  "errorDeleteKey": "Помилка видалення ключа",
+  "errorCreateKey": "Помилка створення ключа",
+  "errorExportData": "Помилка експорту даних",
+  "errorOperationCancelled": "Операцію скасовано",
+
+  "errorAudioTooShort": "Аудіо занадто коротке для водяного знака (мінімум 5 секунд)",
+  "errorStereoOnly": "Підтримується лише моно або стерео аудіо (до 2 каналів)",
+  "errorAudioNotFound": "Вхідний аудіофайл не знайдено: {path}",
+  "@errorAudioNotFound": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+
+  "permissionRequired": "Для роботи програми необхідний доступ до аудіофайлів",
+  "menuLanguage": "Language 🎌"
+}
